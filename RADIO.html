@@ -1,0 +1,3353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RADIO MADRID RP</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#0d1117;
+    color:#fff;
+    min-height:100vh;
+}
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:250px;
+    background:#111827;
+    border-right:1px solid #263244;
+    padding:20px 12px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    overflow-y:auto;
+}
+
+.logo{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#38bdf8;
+    margin-bottom:25px;
+}
+
+.logo span{
+    display:block;
+    font-size:8px;
+    color:#64748b;
+    margin-top:5px;
+    font-weight:normal;
+}
+
+.menu-title{
+    color:#64748b;
+    font-size:11px;
+    font-weight:bold;
+    margin:18px 10px 8px;
+    text-transform:uppercase;
+}
+
+.menu-btn{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#cbd5e1;
+    text-align:left;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:4px;
+    font-size:14px;
+}
+
+.menu-btn:hover,
+.menu-btn.active{
+    background:#1e293b;
+    color:#38bdf8;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    padding:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topbar h1{
+    font-size:26px;
+}
+
+.status{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    background:#22c55e;
+    border-radius:50%;
+    box-shadow:0 0 10px #22c55e;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:#111827;
+    border:1px solid #263244;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.card h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.stat{
+    background:#0f172a;
+    border:1px solid #263244;
+    padding:18px;
+    border-radius:10px;
+}
+
+.stat-title{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.stat-value{
+    font-size:26px;
+    font-weight:bold;
+    margin-top:8px;
+    color:#38bdf8;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    color:#cbd5e1;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    background:#0f172a;
+    border:1px solid #334155;
+    color:#fff;
+    padding:11px;
+    border-radius:7px;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#38bdf8;
+}
+
+button{
+    font-family:inherit;
+}
+
+.btn{
+    border:0;
+    padding:11px 16px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:#0284c7;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0369a1;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-warning{
+    background:#d97706;
+    color:white;
+}
+
+.btn-secondary{
+    background:#334155;
+    color:white;
+}
+
+.btn + .btn{
+    margin-left:7px;
+}
+
+/* =========================
+   PERSONAJE
+========================= */
+
+.character-info{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+}
+
+.info-box{
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:8px;
+    padding:14px;
+}
+
+.info-label{
+    color:#64748b;
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.info-value{
+    margin-top:5px;
+    font-weight:bold;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#1e3a8a;
+    color:#bfdbfe;
+    font-size:12px;
+}
+
+/* =========================
+   RADIO
+========================= */
+
+.radio-layout{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:15px;
+}
+
+.radio-sidebar{
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:10px;
+    padding:12px;
+    max-height:650px;
+    overflow-y:auto;
+}
+
+.radio-main{
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:10px;
+    padding:15px;
+}
+
+.radio-section{
+    margin-bottom:18px;
+}
+
+.radio-section-title{
+    font-size:12px;
+    color:#38bdf8;
+    font-weight:bold;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    padding-left:5px;
+}
+
+.channel{
+    width:100%;
+    border:0;
+    background:#172033;
+    color:#cbd5e1;
+    padding:9px;
+    margin-bottom:5px;
+    border-radius:6px;
+    text-align:left;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.channel:hover,
+.channel.selected{
+    background:#075985;
+    color:#fff;
+}
+
+.radio-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.current-channel{
+    font-size:20px;
+    font-weight:bold;
+    color:#38bdf8;
+}
+
+.radio-status{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.radio-screen{
+    height:400px;
+    background:#020617;
+    border:1px solid #1e293b;
+    border-radius:8px;
+    padding:15px;
+    overflow-y:auto;
+}
+
+.message{
+    padding:9px;
+    border-bottom:1px solid #172033;
+    font-size:13px;
+}
+
+.message .time{
+    color:#64748b;
+    margin-right:8px;
+}
+
+.message .author{
+    color:#38bdf8;
+    font-weight:bold;
+}
+
+.radio-controls{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.radio-controls .btn{
+    flex:1;
+    min-width:120px;
+}
+
+/* =========================
+   TABLAS
+========================= */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:11px;
+    border-bottom:1px solid #263244;
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    color:#38bdf8;
+    background:#0f172a;
+}
+
+td{
+    color:#cbd5e1;
+}
+
+/* =========================
+   ALERTAS
+========================= */
+
+.alert{
+    padding:12px;
+    border-radius:7px;
+    margin-bottom:12px;
+    font-size:13px;
+}
+
+.alert-info{
+    background:#082f49;
+    color:#bae6fd;
+    border:1px solid #075985;
+}
+
+.alert-success{
+    background:#052e16;
+    color:#bbf7d0;
+    border:1px solid #166534;
+}
+
+.alert-warning{
+    background:#451a03;
+    color:#fed7aa;
+    border:1px solid #9a3412;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:200px;
+    }
+
+    .main{
+        margin-left:200px;
+        width:calc(100% - 200px);
+    }
+
+    .radio-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .app{
+        display:block;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:15px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     BARRA LATERAL
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        RADIO MADRID RP
+        <span>Echo por Conexión</span>
+    </div>
+
+    <div class="menu-title">
+        Principal
+    </div>
+
+    <button
+        class="menu-btn active"
+        data-view="inicio"
+    >
+        🏠 Panel Principal
+    </button>
+
+    <button
+        class="menu-btn"
+        data-view="radio"
+    >
+        📻 Sala de Radio
+    </button>
+
+    <div class="menu-title">
+        Gestión
+    </div>
+
+    <button
+        class="menu-btn"
+        data-view="civil"
+    >
+        👤 Registro Civil
+    </button>
+
+    <button
+        class="menu-btn"
+        data-view="denuncias"
+    >
+        📄 Gestión de Denuncias
+    </button>
+
+    <button
+        class="menu-btn"
+        data-view="informes"
+    >
+        📋 Informes
+    </button>
+
+    <button
+        class="menu-btn"
+        data-view="captura"
+    >
+        🔎 Búsqueda y Captura
+    </button>
+
+</aside>
+
+
+<!-- =========================
+     CONTENIDO PRINCIPAL
+========================= -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div>
+            <h1 id="pageTitle">
+                Panel Principal
+            </h1>
+        </div>
+
+        <div class="status">
+
+            <div class="status-dot"></div>
+
+            <span>
+                Sistema conectado
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PANEL PRINCIPAL
+    ========================= -->
+
+    <section id="view-inicio">
+
+        <!-- REGISTRO DEL PRIMER PJ -->
+
+        <div
+            class="card"
+            id="registerCard"
+        >
+
+            <h2>
+                Registrar primer PJ
+            </h2>
+
+            <div class="alert alert-info">
+
+                Debes crear tu personaje antes
+                de utilizar el panel.
+
+                Una vez creado, quedará guardado
+                automáticamente en este navegador.
+
+            </div>
+
+            <div class="grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Nombre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Ej. Carlos"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Apellidos
+                    </label>
+
+                    <input
+                        type="text"
+                        id="apellidos"
+                        placeholder="Ej. García López"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Cuerpo
+                    </label>
+
+                    <select id="cuerpo">
+
+                        <option value="">
+                            Selecciona un cuerpo
+                        </option>
+
+                        <option value="CNP">
+                            Policía Nacional (CNP)
+                        </option>
+
+                        <option value="GC">
+                            Guardia Civil
+                        </option>
+
+                        <option value="PL">
+                            Policía Local
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-primary"
+                id="crearPJBtn"
+            >
+                Registrar PJ
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             PERSONAJE ACTUAL
+        ========================= -->
+
+        <div
+            class="card"
+            id="characterPanel"
+            style="display:none;"
+        >
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:15px;
+                gap:10px;
+                flex-wrap:wrap;
+            ">
+
+                <div>
+
+                    <h2>
+                        Personaje Actual
+                    </h2>
+
+                </div>
+
+                <div>
+
+                    <button
+                        class="btn btn-primary"
+                        id="otroPJBtn"
+                    >
+                        Registrar otro PJ
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="character-info">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Nombre
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="infoNombre"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Apellidos
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="infoApellidos"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Placa
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="infoPlaca"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Cuerpo
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="infoCuerpo"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:20px;">
+
+                <h3>
+                    Mis PJ
+                </h3>
+
+                <div
+                    id="listaPersonajes"
+                    class="grid"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ESTADÍSTICAS
+        ========================= -->
+
+        <div class="card">
+
+            <h2>
+                Estado del sistema
+            </h2>
+
+            <div class="grid">
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        PJ registrados
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statPJ"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Canal de radio
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statCanal"
+                    >
+                        Ninguno
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Denuncias
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statDenuncias"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Informes
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statInformes"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SALA DE RADIO
+    ========================= -->
+
+    <section
+        id="view-radio"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <div class="radio-layout">
+
+                <!-- LISTA DE CANALES -->
+
+                <div class="radio-sidebar">
+
+                    <div class="radio-section">
+
+                        <div class="radio-section-title">
+                            CNP
+                        </div>
+
+                        <div id="radioCNP"></div>
+
+                    </div>
+
+
+                    <div class="radio-section">
+
+                        <div class="radio-section-title">
+                            Guardia Civil
+                        </div>
+
+                        <div id="radioGC"></div>
+
+                    </div>
+
+
+                    <div class="radio-section">
+
+                        <div class="radio-section-title">
+                            Policía Local
+                        </div>
+
+                        <div id="radioPL"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PANEL RADIO -->
+
+                <div class="radio-main">
+
+                    <div class="radio-header">
+
+                        <div>
+
+                            <div class="radio-status">
+                                Canal seleccionado
+                            </div>
+
+                            <div
+                                class="current-channel"
+                                id="currentChannel"
+                            >
+                                Ninguno
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="radio-status"
+                            id="radioStatus"
+                        >
+                            Radio en espera
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="radio-screen"
+                        id="radioScreen"
+                    >
+
+                        <div class="message">
+
+                            <span class="time">
+                                --:--
+                            </span>
+
+                            <span class="author">
+                                SISTEMA
+                            </span>
+
+                            Selecciona un canal de radio.
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="radio-controls">
+
+                        <button
+                            class="btn btn-success"
+                            id="micBtn"
+                        >
+                            🎙️ Micrófono
+                        </button>
+
+                        <button
+                            class="btn btn-primary"
+                            id="transmitBtn"
+                        >
+                            📡 Transmitir
+                        </button>
+
+                        <button
+                            class="btn btn-danger"
+                            id="stopBtn"
+                        >
+                            ⛔ Detener
+                        </button>
+
+                        <button
+                            class="btn btn-warning"
+                            id="muteBtn"
+                        >
+                            🔇 Silenciar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REGISTRO CIVIL
+    ========================= -->
+
+    <section
+        id="view-civil"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <h2>
+                Registro Civil
+            </h2>
+
+            <div class="grid">
+
+                <div class="form-group">
+
+                    <label>
+                        DNI
+                    </label>
+
+                    <input
+                        type="text"
+                        id="civilDni"
+                        placeholder="12345678A"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Nombre completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="civilNombre"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Fecha de nacimiento
+                    </label>
+
+                    <input
+                        type="date"
+                        id="civilFecha"
+                    >
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-primary"
+                id="buscarCivilBtn"
+            >
+                Buscar ciudadano
+            </button>
+
+            <div
+                id="resultadoCivil"
+                style="margin-top:20px;"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DENUNCIAS
+    ========================= -->
+
+    <section
+        id="view-denuncias"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <h2>
+                Gestión de Denuncias
+            </h2>
+
+            <div class="form-group">
+
+                <label>
+                    Descripción
+                </label>
+
+                <textarea
+                    id="denunciaTexto"
+                    rows="5"
+                    placeholder="Escribe la denuncia..."
+                ></textarea>
+
+            </div>
+
+            <button
+                class="btn btn-primary"
+                id="crearDenunciaBtn"
+            >
+                Crear denuncia
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Denuncias registradas
+            </h2>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Agente</th>
+                            <th>Descripción</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody
+                        id="tablaDenuncias"
+                    ></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INFORMES
+    ========================= -->
+
+    <section
+        id="view-informes"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <h2>
+                Informes
+            </h2>
+
+            <div class="form-group">
+
+                <label>
+                    Tipo de informe
+                </label>
+
+                <select id="tipoInforme">
+
+                    <option>
+                        Informe policial
+                    </option>
+
+                    <option>
+                        Informe de actuación
+                    </option>
+
+                    <option>
+                        Informe de intervención
+                    </option>
+
+                    <option>
+                        Informe administrativo
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Contenido
+                </label>
+
+                <textarea
+                    id="informeTexto"
+                    rows="7"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="btn btn-primary"
+                id="crearInformeBtn"
+            >
+                Crear informe
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Informes registrados
+            </h2>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Agente</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody
+                        id="tablaInformes"
+                    ></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         BÚSQUEDA Y CAPTURA
+    ========================= -->
+
+    <section
+        id="view-captura"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <h2>
+                Búsqueda y Captura
+            </h2>
+
+            <div class="grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Nombre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="capturaNombre"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        DNI
+                    </label>
+
+                    <input
+                        type="text"
+                        id="capturaDni"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn btn-primary"
+                id="buscarCapturaBtn"
+            >
+                Buscar
+            </button>
+
+
+            <div
+                id="resultadoCaptura"
+                style="margin-top:20px;"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DATOS GUARDADOS
+===================================================== */
+
+let personajes =
+    JSON.parse(
+        localStorage.getItem(
+            "simulador_personajes"
+        ) || "[]"
+    );
+
+
+let personajeActual =
+    Number(
+        localStorage.getItem(
+            "simulador_personaje_actual"
+        )
+    ) || null;
+
+
+let placaSiguiente =
+    Number(
+        localStorage.getItem(
+            "simulador_placa_siguiente"
+        )
+    ) || 1001;
+
+
+let denuncias =
+    JSON.parse(
+        localStorage.getItem(
+            "simulador_denuncias"
+        ) || "[]"
+    );
+
+
+let informes =
+    JSON.parse(
+        localStorage.getItem(
+            "simulador_informes"
+        ) || "[]"
+    );
+
+
+let canalActual = null;
+
+let microfonoActivo = false;
+
+let transmitiendo = false;
+
+let silenciado = false;
+
+let reconocimiento = null;
+
+
+/* =====================================================
+   GUARDAR
+===================================================== */
+
+function guardarDatos(){
+
+    localStorage.setItem(
+        "simulador_personajes",
+        JSON.stringify(personajes)
+    );
+
+    localStorage.setItem(
+        "simulador_personaje_actual",
+        personajeActual ?? ""
+    );
+
+    localStorage.setItem(
+        "simulador_placa_siguiente",
+        placaSiguiente
+    );
+
+    localStorage.setItem(
+        "simulador_denuncias",
+        JSON.stringify(denuncias)
+    );
+
+    localStorage.setItem(
+        "simulador_informes",
+        JSON.stringify(informes)
+    );
+}
+
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+const registerCard =
+    document.getElementById(
+        "registerCard"
+    );
+
+const characterPanel =
+    document.getElementById(
+        "characterPanel"
+    );
+
+const listaPersonajes =
+    document.getElementById(
+        "listaPersonajes"
+    );
+
+const statPJ =
+    document.getElementById(
+        "statPJ"
+    );
+
+const statCanal =
+    document.getElementById(
+        "statCanal"
+    );
+
+const statDenuncias =
+    document.getElementById(
+        "statDenuncias"
+    );
+
+const statInformes =
+    document.getElementById(
+        "statInformes"
+    );
+
+
+/* =====================================================
+   CUERPOS
+===================================================== */
+
+function nombreCuerpo(cuerpo){
+
+    if(cuerpo === "CNP"){
+        return "Policía Nacional (CNP)";
+    }
+
+    if(cuerpo === "GC"){
+        return "Guardia Civil";
+    }
+
+    if(cuerpo === "PL"){
+        return "Policía Local";
+    }
+
+    return cuerpo;
+}
+
+
+/* =====================================================
+   VISTA DE REGISTRO
+===================================================== */
+
+function actualizarVistaRegistro(){
+
+    const tienePJ =
+        personajes.length > 0;
+
+
+    if(tienePJ){
+
+        registerCard.style.display =
+            "none";
+
+        characterPanel.style.display =
+            "block";
+
+    }else{
+
+        registerCard.style.display =
+            "block";
+
+        characterPanel.style.display =
+            "none";
+
+    }
+}
+
+
+/* =====================================================
+   CREAR PJ
+===================================================== */
+
+document
+.getElementById("crearPJBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        const nombre =
+            document.getElementById(
+                "nombre"
+            ).value.trim();
+
+
+        const apellidos =
+            document.getElementById(
+                "apellidos"
+            ).value.trim();
+
+
+        const cuerpo =
+            document.getElementById(
+                "cuerpo"
+            ).value;
+
+
+        if(
+            !nombre ||
+            !apellidos ||
+            !cuerpo
+        ){
+
+            alert(
+                "Completa nombre, apellidos y cuerpo."
+            );
+
+            return;
+        }
+
+
+        if(personajes.length >= 3){
+
+            alert(
+                "Solo puedes tener un máximo de 3 PJ."
+            );
+
+            return;
+        }
+
+
+        const nuevoPJ = {
+
+            id:Date.now(),
+
+            nombre:nombre,
+
+            apellidos:apellidos,
+
+            cuerpo:cuerpo,
+
+            placa:placaSiguiente,
+
+            fechaCreacion:
+                new Date()
+                .toLocaleString("es-ES")
+
+        };
+
+
+        personajes.push(
+            nuevoPJ
+        );
+
+
+        personajeActual =
+            nuevoPJ.id;
+
+
+        placaSiguiente++;
+
+
+        /*
+           GUARDAR PJ
+        */
+
+        guardarDatos();
+
+
+        document.getElementById(
+            "nombre"
+        ).value = "";
+
+
+        document.getElementById(
+            "apellidos"
+        ).value = "";
+
+
+        document.getElementById(
+            "cuerpo"
+        ).value = "";
+
+
+        registerCard
+            .querySelector("h2")
+            .textContent =
+            "Registrar primer PJ";
+
+
+        actualizarVistaRegistro();
+
+        actualizarPersonajes();
+
+        actualizarPanelPersonaje();
+
+        actualizarEstadisticas();
+
+
+        alert(
+            "PJ registrado correctamente.\n\n" +
+            "El personaje ha quedado guardado."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   REGISTRAR OTRO PJ
+===================================================== */
+
+document
+.getElementById("otroPJBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        if(personajes.length >= 3){
+
+            alert(
+                "Ya tienes 3 PJ registrados."
+            );
+
+            return;
+        }
+
+
+        registerCard.style.display =
+            "block";
+
+
+        registerCard
+            .querySelector("h2")
+            .textContent =
+            "Registrar otro PJ";
+
+
+        registerCard.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =====================================================
+   LISTA DE PJ
+===================================================== */
+
+function actualizarPersonajes(){
+
+    listaPersonajes.innerHTML = "";
+
+
+    personajes.forEach(
+        function(pj){
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "info-box";
+
+
+            const activo =
+                pj.id === personajeActual;
+
+
+            div.innerHTML = `
+
+                <div class="info-label">
+                    PJ
+                </div>
+
+                <div
+                    class="info-value"
+                    style="margin-bottom:8px;"
+                >
+                    ${escapeHTML(pj.nombre)}
+                    ${escapeHTML(pj.apellidos)}
+                </div>
+
+                <div style="margin-bottom:8px;">
+
+                    <span class="badge">
+                        ${escapeHTML(pj.cuerpo)}
+                    </span>
+
+                </div>
+
+                <div style="
+                    color:#94a3b8;
+                    font-size:12px;
+                    margin-bottom:10px;
+                ">
+                    Placa: ${pj.placa}
+                </div>
+
+                ${
+                    activo
+                    ?
+                    `
+                    <button
+                        class="btn btn-secondary"
+                        disabled
+                        style="opacity:.6;"
+                    >
+                        PJ seleccionado
+                    </button>
+                    `
+                    :
+                    `
+                    <button
+                        class="btn btn-primary seleccionar-pj"
+                        data-id="${pj.id}"
+                    >
+                        Seleccionar
+                    </button>
+                    `
+                }
+
+            `;
+
+
+            listaPersonajes
+                .appendChild(div);
+
+        }
+    );
+
+
+    document
+    .querySelectorAll(
+        ".seleccionar-pj"
+    )
+    .forEach(
+        function(btn){
+
+            btn.addEventListener(
+                "click",
+                function(){
+
+                    const id =
+                        Number(
+                            this.dataset.id
+                        );
+
+
+                    personajeActual =
+                        id;
+
+
+                    guardarDatos();
+
+
+                    actualizarPersonajes();
+
+                    actualizarPanelPersonaje();
+
+                    actualizarEstadisticas();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PJ ACTUAL
+===================================================== */
+
+function actualizarPanelPersonaje(){
+
+    const pj =
+        personajes.find(
+            p =>
+                p.id ===
+                personajeActual
+        );
+
+
+    if(!pj){
+
+        if(personajes.length > 0){
+
+            personajeActual =
+                personajes[0].id;
+
+            guardarDatos();
+
+            actualizarPanelPersonaje();
+
+        }
+
+        return;
+    }
+
+
+    document.getElementById(
+        "infoNombre"
+    ).textContent =
+        pj.nombre;
+
+
+    document.getElementById(
+        "infoApellidos"
+    ).textContent =
+        pj.apellidos;
+
+
+    document.getElementById(
+        "infoPlaca"
+    ).textContent =
+        pj.placa;
+
+
+    document.getElementById(
+        "infoCuerpo"
+    ).textContent =
+        nombreCuerpo(
+            pj.cuerpo
+        );
+
+}
+
+
+/* =====================================================
+   ESTADÍSTICAS
+===================================================== */
+
+function actualizarEstadisticas(){
+
+    statPJ.textContent =
+        personajes.length;
+
+
+    statCanal.textContent =
+        canalActual ||
+        "Ninguno";
+
+
+    statDenuncias.textContent =
+        denuncias.length;
+
+
+    statInformes.textContent =
+        informes.length;
+
+}
+
+
+/* =====================================================
+   SEGURIDAD HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
+const titles = {
+
+    inicio:
+        "Panel Principal",
+
+    radio:
+        "Sala de Radio",
+
+    civil:
+        "Registro Civil",
+
+    denuncias:
+        "Gestión de Denuncias",
+
+    informes:
+        "Informes",
+
+    captura:
+        "Búsqueda y Captura"
+
+};
+
+
+document
+.querySelectorAll(
+    ".menu-btn"
+)
+.forEach(
+    function(btn){
+
+        btn.addEventListener(
+            "click",
+            function(){
+
+                const view =
+                    this.dataset.view;
+
+
+                document
+                .querySelectorAll(
+                    "main section"
+                )
+                .forEach(
+                    function(section){
+
+                        section.style.display =
+                            "none";
+
+                    }
+                );
+
+
+                const selected =
+                    document.getElementById(
+                        "view-" + view
+                    );
+
+
+                if(selected){
+
+                    selected.style.display =
+                        "block";
+
+                }
+
+
+                document
+                .querySelectorAll(
+                    ".menu-btn"
+                )
+                .forEach(
+                    function(button){
+
+                        button.classList
+                            .remove(
+                                "active"
+                            );
+
+                    }
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                document.getElementById(
+                    "pageTitle"
+                ).textContent =
+                    titles[view] ||
+                    "Panel Principal";
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CREAR CANAL
+===================================================== */
+
+function crearCanal(
+    contenedor,
+    nombre
+){
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.className =
+        "channel";
+
+
+    button.textContent =
+        nombre;
+
+
+    button.dataset.channel =
+        nombre;
+
+
+    button.dataset.generated =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            seleccionarCanal(
+                nombre
+            );
+
+        }
+    );
+
+
+    contenedor.appendChild(
+        button
+    );
+
+}
+
+
+/* =====================================================
+   CNP
+===================================================== */
+
+const radioCNP =
+    document.getElementById(
+        "radioCNP"
+    );
+
+
+const uprTitle =
+    document.createElement(
+        "div"
+    );
+
+uprTitle.className =
+    "radio-section-title";
+
+uprTitle.textContent =
+    "UPR";
+
+radioCNP.appendChild(
+    uprTitle
+);
+
+
+for(
+    let i = 1;
+    i <= 20;
+    i++
+){
+
+    crearCanal(
+        radioCNP,
+        "UPR-" + i
+    );
+
+}
+
+
+const uipTitle =
+    document.createElement(
+        "div"
+    );
+
+uipTitle.className =
+    "radio-section-title";
+
+uipTitle.textContent =
+    "UIP";
+
+radioCNP.appendChild(
+    uipTitle
+);
+
+
+for(
+    let i = 1;
+    i <= 20;
+    i++
+){
+
+    crearCanal(
+        radioCNP,
+        "UIP-" + i
+    );
+
+}
+
+
+const zetasTitle =
+    document.createElement(
+        "div"
+    );
+
+zetasTitle.className =
+    "radio-section-title";
+
+zetasTitle.textContent =
+    "ZETAS";
+
+radioCNP.appendChild(
+    zetasTitle
+);
+
+
+[
+    "Z-20",
+    "Z-30",
+    "Z-40",
+    "Z-50",
+    "Z-60"
+].forEach(
+    function(canal){
+
+        crearCanal(
+            radioCNP,
+            canal
+        );
+
+    }
+);
+
+
+const cnpOtrosTitle =
+    document.createElement(
+        "div"
+    );
+
+cnpOtrosTitle.className =
+    "radio-section-title";
+
+cnpOtrosTitle.textContent =
+    "CNP - OTROS";
+
+radioCNP.appendChild(
+    cnpOtrosTitle
+);
+
+
+[
+    "CNP GENERAL",
+    "JEFATURA"
+].forEach(
+    function(canal){
+
+        crearCanal(
+            radioCNP,
+            canal
+        );
+
+    }
+);
+
+
+/* =====================================================
+   GUARDIA CIVIL
+===================================================== */
+
+const radioGC =
+    document.getElementById(
+        "radioGC"
+    );
+
+
+const gcTitle =
+    document.createElement(
+        "div"
+    );
+
+gcTitle.className =
+    "radio-section-title";
+
+gcTitle.textContent =
+    "CANALES GC";
+
+radioGC.appendChild(
+    gcTitle
+);
+
+
+for(
+    let i = 1;
+    i <= 70;
+    i++
+){
+
+    crearCanal(
+        radioGC,
+        "C-GC" + i
+    );
+
+}
+
+
+[
+    "GC GENERAL",
+    "GC TRÁFICO",
+    "GC SEPRONA"
+].forEach(
+    function(canal){
+
+        crearCanal(
+            radioGC,
+            canal
+        );
+
+    }
+);
+
+
+/* =====================================================
+   POLICÍA LOCAL
+===================================================== */
+
+const radioPL =
+    document.getElementById(
+        "radioPL"
+    );
+
+
+function crearGrupoPL(
+    titulo,
+    prefijo
+){
+
+    const title =
+        document.createElement(
+            "div"
+        );
+
+
+    title.className =
+        "radio-section-title";
+
+
+    title.textContent =
+        titulo;
+
+
+    radioPL.appendChild(
+        title
+    );
+
+
+    for(
+        let i = 1;
+        i <= 20;
+        i++
+    ){
+
+        crearCanal(
+            radioPL,
+            prefijo + i
+        );
+
+    }
+
+}
+
+
+crearGrupoPL(
+    "KO",
+    "KO"
+);
+
+
+crearGrupoPL(
+    "SEC",
+    "SEC"
+);
+
+
+crearGrupoPL(
+    "TRA",
+    "TRA"
+);
+
+
+crearGrupoPL(
+    "PAT",
+    "PAT"
+);
+
+
+/* =====================================================
+   SELECCIONAR CANAL
+===================================================== */
+
+function seleccionarCanal(
+    nombre
+){
+
+    canalActual =
+        nombre;
+
+
+    document.getElementById(
+        "currentChannel"
+    ).textContent =
+        nombre;
+
+
+    document.getElementById(
+        "radioStatus"
+    ).textContent =
+        "Canal seleccionado";
+
+
+    document
+    .querySelectorAll(
+        ".channel"
+    )
+    .forEach(
+        function(button){
+
+            button.classList
+                .remove(
+                    "selected"
+                );
+
+        }
+    );
+
+
+    document
+    .querySelectorAll(
+        ".channel"
+    )
+    .forEach(
+        function(button){
+
+            if(
+                button.dataset.channel ===
+                nombre
+            ){
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+        }
+    );
+
+
+    añadirMensaje(
+        "SISTEMA",
+        "Canal " +
+        nombre +
+        " seleccionado."
+    );
+
+
+    actualizarEstadisticas();
+
+}
+
+
+/* =====================================================
+   MENSAJES
+===================================================== */
+
+function añadirMensaje(
+    autor,
+    texto
+){
+
+    const screen =
+        document.getElementById(
+            "radioScreen"
+        );
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.className =
+        "message";
+
+
+    const hora =
+        new Date()
+        .toLocaleTimeString(
+            "es-ES",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        );
+
+
+    div.innerHTML = `
+
+        <span class="time">
+            ${hora}
+        </span>
+
+        <span class="author">
+            ${escapeHTML(autor)}
+        </span>
+
+        ${escapeHTML(texto)}
+
+    `;
+
+
+    screen.appendChild(
+        div
+    );
+
+
+    screen.scrollTop =
+        screen.scrollHeight;
+
+}
+
+
+/* =====================================================
+   MICRÓFONO
+===================================================== */
+
+document
+.getElementById("micBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        if(!canalActual){
+
+            alert(
+                "Selecciona primero un canal."
+            );
+
+            return;
+        }
+
+
+        if(microfonoActivo){
+
+            detenerMicrofono();
+
+        }else{
+
+            iniciarMicrofono();
+
+        }
+
+    }
+);
+
+
+function iniciarMicrofono(){
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if(!SpeechRecognition){
+
+        alert(
+            "Tu navegador no soporta reconocimiento de voz."
+        );
+
+        return;
+    }
+
+
+    reconocimiento =
+        new SpeechRecognition();
+
+
+    reconocimiento.lang =
+        "es-ES";
+
+
+    reconocimiento.continuous =
+        true;
+
+
+    reconocimiento.interimResults =
+        false;
+
+
+    reconocimiento.onresult =
+        function(event){
+
+            const ultimo =
+                event.results[
+                    event.results.length - 1
+                ];
+
+
+            const texto =
+                ultimo[0].transcript;
+
+
+            if(
+                transmitiendo &&
+                !silenciado
+            ){
+
+                const pj =
+                    personajes.find(
+                        p =>
+                            p.id ===
+                            personajeActual
+                    );
+
+
+                const autor =
+                    pj
+                    ?
+                    `${pj.nombre} ${pj.apellidos}`
+                    :
+                    "AGENTE";
+
+
+                añadirMensaje(
+                    autor,
+                    texto
+                );
+
+            }
+
+        };
+
+
+    reconocimiento.onerror =
+        function(){
+
+        };
+
+
+    reconocimiento.onend =
+        function(){
+
+            if(
+                microfonoActivo
+            ){
+
+                try{
+
+                    reconocimiento.start();
+
+                }catch(e){}
+
+            }
+
+        };
+
+
+    try{
+
+        reconocimiento.start();
+
+
+        microfonoActivo =
+            true;
+
+
+        document.getElementById(
+            "micBtn"
+        ).textContent =
+            "🎙️ Micrófono activo";
+
+
+        document.getElementById(
+            "radioStatus"
+        ).textContent =
+            "Micrófono activo";
+
+    }catch(e){
+
+        alert(
+            "No se ha podido activar el micrófono."
+        );
+
+    }
+
+}
+
+
+function detenerMicrofono(){
+
+    microfonoActivo =
+        false;
+
+
+    transmitiendo =
+        false;
+
+
+    if(reconocimiento){
+
+        try{
+
+            reconocimiento.stop();
+
+        }catch(e){}
+
+    }
+
+
+    document.getElementById(
+        "micBtn"
+    ).textContent =
+        "🎙️ Micrófono";
+
+
+    document.getElementById(
+        "radioStatus"
+    ).textContent =
+        "Radio en espera";
+
+}
+
+
+/* =====================================================
+   TRANSMITIR
+===================================================== */
+
+document
+.getElementById("transmitBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        if(!canalActual){
+
+            alert(
+                "Selecciona primero un canal."
+            );
+
+            return;
+        }
+
+
+        if(!microfonoActivo){
+
+            alert(
+                "Activa primero el micrófono."
+            );
+
+            return;
+        }
+
+
+        transmitiendo =
+            true;
+
+
+        document.getElementById(
+            "radioStatus"
+        ).textContent =
+            "🔴 TRANSMITIENDO";
+
+
+        const pj =
+            personajes.find(
+                p =>
+                    p.id ===
+                    personajeActual
+            );
+
+
+        if(pj){
+
+            añadirMensaje(
+                "SISTEMA",
+                `${pj.nombre} está transmitiendo en ${canalActual}.`
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   DETENER
+===================================================== */
+
+document
+.getElementById("stopBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        transmitiendo =
+            false;
+
+
+        document.getElementById(
+            "radioStatus"
+        ).textContent =
+            microfonoActivo
+            ?
+            "Micrófono activo"
+            :
+            "Radio en espera";
+
+
+        añadirMensaje(
+            "SISTEMA",
+            "Transmisión finalizada."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SILENCIAR
+===================================================== */
+
+document
+.getElementById("muteBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        silenciado =
+            !silenciado;
+
+
+        if(silenciado){
+
+            this.textContent =
+                "🔊 Activar sonido";
+
+
+            añadirMensaje(
+                "SISTEMA",
+                "Radio silenciada."
+            );
+
+        }else{
+
+            this.textContent =
+                "🔇 Silenciar";
+
+
+            añadirMensaje(
+                "SISTEMA",
+                "Radio activada."
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   REGISTRO CIVIL
+===================================================== */
+
+document
+.getElementById("buscarCivilBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        const dni =
+            document.getElementById(
+                "civilDni"
+            ).value.trim();
+
+
+        const nombre =
+            document.getElementById(
+                "civilNombre"
+            ).value.trim();
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoCivil"
+            );
+
+
+        if(!dni && !nombre){
+
+            resultado.innerHTML = `
+
+                <div class="alert alert-warning">
+
+                    Introduce un DNI o un nombre.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        resultado.innerHTML = `
+
+            <div class="alert alert-success">
+
+                <strong>
+                    Resultado encontrado
+                </strong>
+
+                <br><br>
+
+                DNI:
+                ${escapeHTML(
+                    dni ||
+                    "No indicado"
+                )}
+
+                <br>
+
+                Nombre:
+                ${escapeHTML(
+                    nombre ||
+                    "No indicado"
+                )}
+
+                <br><br>
+
+                Registro simulado correctamente.
+
+            </div>
+
+        `;
+
+    }
+);
+
+
+/* =====================================================
+   DENUNCIAS
+===================================================== */
+
+document
+.getElementById("crearDenunciaBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        const texto =
+            document.getElementById(
+                "denunciaTexto"
+            ).value.trim();
+
+
+        if(!texto){
+
+            alert(
+                "Escribe una descripción."
+            );
+
+            return;
+        }
+
+
+        const pj =
+            personajes.find(
+                p =>
+                    p.id ===
+                    personajeActual
+            );
+
+
+        const nuevaDenuncia = {
+
+            id:
+                denuncias.length + 1,
+
+            fecha:
+                new Date()
+                .toLocaleString(
+                    "es-ES"
+                ),
+
+            agente:
+                pj
+                ?
+                `${pj.nombre} ${pj.apellidos}`
+                :
+                "Sin agente",
+
+            descripcion:
+                texto
+
+        };
+
+
+        denuncias.push(
+            nuevaDenuncia
+        );
+
+
+        guardarDatos();
+
+
+        document.getElementById(
+            "denunciaTexto"
+        ).value = "";
+
+
+        actualizarTablaDenuncias();
+
+        actualizarEstadisticas();
+
+
+        alert(
+            "Denuncia creada correctamente."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TABLA DENUNCIAS
+===================================================== */
+
+function actualizarTablaDenuncias(){
+
+    const tabla =
+        document.getElementById(
+            "tablaDenuncias"
+        );
+
+
+    tabla.innerHTML = "";
+
+
+    denuncias.forEach(
+        function(denuncia){
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+                    #${denuncia.id}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        denuncia.fecha
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        denuncia.agente
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        denuncia.descripcion
+                    )}
+                </td>
+
+            `;
+
+
+            tabla.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INFORMES
+===================================================== */
+
+document
+.getElementById("crearInformeBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        const tipo =
+            document.getElementById(
+                "tipoInforme"
+            ).value;
+
+
+        const texto =
+            document.getElementById(
+                "informeTexto"
+            ).value.trim();
+
+
+        if(!texto){
+
+            alert(
+                "Escribe el contenido del informe."
+            );
+
+            return;
+        }
+
+
+        const pj =
+            personajes.find(
+                p =>
+                    p.id ===
+                    personajeActual
+            );
+
+
+        const nuevoInforme = {
+
+            id:
+                informes.length + 1,
+
+            fecha:
+                new Date()
+                .toLocaleString(
+                    "es-ES"
+                ),
+
+            tipo:
+                tipo,
+
+            agente:
+                pj
+                ?
+                `${pj.nombre} ${pj.apellidos}`
+                :
+                "Sin agente",
+
+            contenido:
+                texto
+
+        };
+
+
+        informes.push(
+            nuevoInforme
+        );
+
+
+        guardarDatos();
+
+
+        document.getElementById(
+            "informeTexto"
+        ).value = "";
+
+
+        actualizarTablaInformes();
+
+        actualizarEstadisticas();
+
+
+        alert(
+            "Informe creado correctamente."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TABLA INFORMES
+===================================================== */
+
+function actualizarTablaInformes(){
+
+    const tabla =
+        document.getElementById(
+            "tablaInformes"
+        );
+
+
+    tabla.innerHTML = "";
+
+
+    informes.forEach(
+        function(informe){
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+                    #${informe.id}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        informe.fecha
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        informe.tipo
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        informe.agente
+                    )}
+                </td>
+
+            `;
+
+
+            tabla.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   BÚSQUEDA Y CAPTURA
+===================================================== */
+
+document
+.getElementById("buscarCapturaBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        const nombre =
+            document.getElementById(
+                "capturaNombre"
+            ).value.trim();
+
+
+        const dni =
+            document.getElementById(
+                "capturaDni"
+            ).value.trim();
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoCaptura"
+            );
+
+
+        if(!nombre && !dni){
+
+            resultado.innerHTML = `
+
+                <div class="alert alert-warning">
+
+                    Introduce un nombre o DNI para buscar.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        resultado.innerHTML = `
+
+            <div class="alert alert-info">
+
+                <strong>
+                    Búsqueda realizada
+                </strong>
+
+                <br><br>
+
+                Nombre:
+                ${escapeHTML(
+                    nombre ||
+                    "No indicado"
+                )}
+
+                <br>
+
+                DNI:
+                ${escapeHTML(
+                    dni ||
+                    "No indicado"
+                )}
+
+                <br><br>
+
+                Esta función pertenece al simulador.
+
+            </div>
+
+        `;
+
+    }
+);
+
+
+/* =====================================================
+   INICIO DEL SISTEMA
+===================================================== */
+
+function iniciarSistema(){
+
+    /*
+       Si ya existe un PJ guardado,
+       NO se vuelve a pedir.
+    */
+
+    if(personajes.length > 0){
+
+        const existe =
+            personajes.some(
+                p =>
+                    p.id ===
+                    personajeActual
+            );
+
+
+        if(!existe){
+
+            personajeActual =
+                personajes[0].id;
+
+        }
+
+
+        guardarDatos();
+
+    }
+
+
+    actualizarVistaRegistro();
+
+    actualizarPersonajes();
+
+    actualizarPanelPersonaje();
+
+    actualizarTablaDenuncias();
+
+    actualizarTablaInformes();
+
+    actualizarEstadisticas();
+
+}
+
+
+iniciarSistema();
+
+</script>
+
+</body>
+</html>

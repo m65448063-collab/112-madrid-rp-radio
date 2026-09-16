@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +7,6 @@
 <title>RADIO MADRID RP</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -84,6 +84,11 @@ body{
     color:#38bdf8;
 }
 
+.menu-btn.locked{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
 /* =========================
    MAIN
 ========================= */
@@ -99,10 +104,19 @@ body{
     justify-content:space-between;
     align-items:center;
     margin-bottom:25px;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
 .topbar h1{
     font-size:26px;
+}
+
+.top-status{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
 .status{
@@ -117,6 +131,19 @@ body{
     background:#22c55e;
     border-radius:50%;
     box-shadow:0 0 10px #22c55e;
+}
+
+.service-status{
+    background:#0f172a;
+    border:1px solid #263244;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.service-time{
+    color:#38bdf8;
+    font-weight:bold;
 }
 
 /* =========================
@@ -214,6 +241,11 @@ button{
     font-weight:bold;
 }
 
+.btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
 .btn-primary{
     background:#0284c7;
     color:white;
@@ -284,6 +316,153 @@ button{
     font-size:12px;
 }
 
+.badge-green{
+    background:#14532d;
+    color:#bbf7d0;
+}
+
+.badge-red{
+    background:#7f1d1d;
+    color:#fecaca;
+}
+
+.badge-orange{
+    background:#78350f;
+    color:#fed7aa;
+}
+
+/* =========================
+   CUERPO ACTIVO
+========================= */
+
+.body-selector{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.body-option{
+    flex:1;
+    min-width:150px;
+    background:#0f172a;
+    border:1px solid #334155;
+    color:#cbd5e1;
+    padding:15px;
+    border-radius:9px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.body-option:hover{
+    border-color:#38bdf8;
+}
+
+.body-option.selected{
+    background:#075985;
+    border-color:#38bdf8;
+    color:#fff;
+}
+
+.body-option.disabled{
+    opacity:.4;
+    cursor:not-allowed;
+}
+
+.service-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:10px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.service-indicator{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.service-dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:#64748b;
+}
+
+.service-dot.online{
+    background:#22c55e;
+    box-shadow:0 0 12px #22c55e;
+}
+
+/* =========================
+   CENTRAL 112
+========================= */
+
+.dispatch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.dispatch-card{
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:10px;
+    padding:18px;
+}
+
+.dispatch-card h3{
+    margin-bottom:8px;
+}
+
+.dispatch-status{
+    font-size:13px;
+    color:#94a3b8;
+    margin-bottom:15px;
+}
+
+.toggle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.toggle-switch{
+    width:52px;
+    height:28px;
+    background:#334155;
+    border-radius:30px;
+    cursor:pointer;
+    position:relative;
+    transition:.2s;
+}
+
+.toggle-switch::after{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    top:3px;
+    left:3px;
+    border-radius:50%;
+    background:#fff;
+    transition:.2s;
+}
+
+.toggle-switch.active{
+    background:#16a34a;
+}
+
+.toggle-switch.active::after{
+    left:27px;
+}
+
 /* =========================
    RADIO
 ========================= */
@@ -340,6 +519,10 @@ button{
 .channel.selected{
     background:#075985;
     color:#fff;
+}
+
+.channel.hidden-body{
+    display:none;
 }
 
 .radio-header{
@@ -456,6 +639,12 @@ td{
     border:1px solid #9a3412;
 }
 
+.alert-danger{
+    background:#450a0a;
+    color:#fecaca;
+    border:1px solid #991b1b;
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -494,7 +683,6 @@ td{
         padding:15px;
     }
 }
-
 </style>
 </head>
 
@@ -502,9 +690,9 @@ td{
 
 <div class="app">
 
-<!-- =========================
-     BARRA LATERAL
-========================= -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
 <aside class="sidebar">
 
@@ -517,58 +705,48 @@ td{
         Principal
     </div>
 
-    <button
-        class="menu-btn active"
-        data-view="inicio"
-    >
+    <button class="menu-btn active" data-view="inicio">
         🏠 Panel Principal
+    </button>
+
+    <button class="menu-btn" data-view="radio">
+        📻 Sala de Radio
     </button>
 
     <button
         class="menu-btn"
-        data-view="radio"
+        id="menu112"
+        data-view="central112"
     >
-        📻 Sala de Radio
+        🚨 Central 112
     </button>
 
     <div class="menu-title">
         Gestión
     </div>
 
-    <button
-        class="menu-btn"
-        data-view="civil"
-    >
+    <button class="menu-btn" data-view="civil">
         👤 Registro Civil
     </button>
 
-    <button
-        class="menu-btn"
-        data-view="denuncias"
-    >
+    <button class="menu-btn" data-view="denuncias">
         📄 Gestión de Denuncias
     </button>
 
-    <button
-        class="menu-btn"
-        data-view="informes"
-    >
+    <button class="menu-btn" data-view="informes">
         📋 Informes
     </button>
 
-    <button
-        class="menu-btn"
-        data-view="captura"
-    >
+    <button class="menu-btn" data-view="captura">
         🔎 Búsqueda y Captura
     </button>
 
 </aside>
 
 
-<!-- =========================
-     CONTENIDO PRINCIPAL
-========================= -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="main">
 
@@ -580,26 +758,49 @@ td{
             </h1>
         </div>
 
-        <div class="status">
+        <div class="top-status">
 
-            <div class="status-dot"></div>
+            <div class="status">
 
-            <span>
-                Sistema conectado
-            </span>
+                <div class="status-dot"></div>
+
+                <span>
+                    Sistema conectado
+                </span>
+
+            </div>
+
+            <div class="service-status">
+
+                Cuerpo:
+                <strong id="topBody">
+                    Sin seleccionar
+                </strong>
+
+                ·
+
+                Servicio:
+                <strong
+                    id="topService"
+                    class="service-time"
+                >
+                    00:00:00
+                </strong>
+
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =========================
-         PANEL PRINCIPAL
-    ========================= -->
+    <!-- =====================================================
+         INICIO
+    ===================================================== -->
 
     <section id="view-inicio">
 
-        <!-- REGISTRO DEL PRIMER PJ -->
+        <!-- CREAR PJ -->
 
         <div
             class="card"
@@ -607,16 +808,13 @@ td{
         >
 
             <h2>
-                Registrar primer PJ
+                Crear personaje
             </h2>
 
             <div class="alert alert-info">
 
-                Debes crear tu personaje antes
-                de utilizar el panel.
-
-                Una vez creado, quedará guardado
-                automáticamente en este navegador.
+                Es la primera vez que utilizas el sistema.
+                Debes crear tu PJ para continuar.
 
             </div>
 
@@ -636,7 +834,6 @@ td{
 
                 </div>
 
-
                 <div class="form-group">
 
                     <label>
@@ -651,29 +848,28 @@ td{
 
                 </div>
 
-
                 <div class="form-group">
 
                     <label>
-                        Cuerpo
+                        Rol
                     </label>
 
-                    <select id="cuerpo">
+                    <select id="rol">
 
                         <option value="">
-                            Selecciona un cuerpo
+                            Selecciona un rol
                         </option>
 
-                        <option value="CNP">
-                            Policía Nacional (CNP)
+                        <option value="AGENTE">
+                            Agente
                         </option>
 
-                        <option value="GC">
-                            Guardia Civil
+                        <option value="112">
+                            Operador 112
                         </option>
 
-                        <option value="PL">
-                            Policía Local
+                        <option value="JEFE">
+                            Jefe
                         </option>
 
                     </select>
@@ -686,15 +882,13 @@ td{
                 class="btn btn-primary"
                 id="crearPJBtn"
             >
-                Registrar PJ
+                Crear PJ
             </button>
 
         </div>
 
 
-        <!-- =========================
-             PERSONAJE ACTUAL
-        ========================= -->
+        <!-- PERSONAJE -->
 
         <div
             class="card"
@@ -711,27 +905,18 @@ td{
                 flex-wrap:wrap;
             ">
 
-                <div>
+                <h2>
+                    Personaje Actual
+                </h2>
 
-                    <h2>
-                        Personaje Actual
-                    </h2>
-
-                </div>
-
-                <div>
-
-                    <button
-                        class="btn btn-primary"
-                        id="otroPJBtn"
-                    >
-                        Registrar otro PJ
-                    </button>
-
-                </div>
+                <button
+                    class="btn btn-primary"
+                    id="otroPJBtn"
+                >
+                    Registrar otro PJ
+                </button>
 
             </div>
-
 
             <div class="character-info">
 
@@ -750,7 +935,6 @@ td{
 
                 </div>
 
-
                 <div class="info-box">
 
                     <div class="info-label">
@@ -765,7 +949,6 @@ td{
                     </div>
 
                 </div>
-
 
                 <div class="info-box">
 
@@ -782,16 +965,15 @@ td{
 
                 </div>
 
-
                 <div class="info-box">
 
                     <div class="info-label">
-                        Cuerpo
+                        Rol
                     </div>
 
                     <div
                         class="info-value"
-                        id="infoCuerpo"
+                        id="infoRol"
                     >
                         -
                     </div>
@@ -800,26 +982,112 @@ td{
 
             </div>
 
+        </div>
 
-            <div style="margin-top:20px;">
 
-                <h3>
-                    Mis PJ
-                </h3>
+        <!-- SELECCIÓN DE CUERPO -->
 
-                <div
-                    id="listaPersonajes"
-                    class="grid"
-                ></div>
+        <div
+            class="card"
+            id="bodyPanel"
+            style="display:none;"
+        >
+
+            <h2>
+                Seleccionar cuerpo
+            </h2>
+
+            <div class="alert alert-warning">
+
+                Debes seleccionar el cuerpo con el que
+                vas a entrar al servicio.
+
+            </div>
+
+            <div class="body-selector">
+
+                <button
+                    class="body-option"
+                    data-body="CNP"
+                >
+                    👮<br>
+                    Policía Nacional
+                </button>
+
+                <button
+                    class="body-option"
+                    data-body="PL"
+                >
+                    👮‍♂️<br>
+                    Policía Local
+                </button>
+
+                <button
+                    class="body-option"
+                    data-body="GC"
+                >
+                    🪖<br>
+                    Guardia Civil
+                </button>
+
+            </div>
+
+            <div class="service-box">
+
+                <div class="service-indicator">
+
+                    <div
+                        class="service-dot"
+                        id="serviceDot"
+                    ></div>
+
+                    <div>
+
+                        <strong id="serviceText">
+                            Fuera de servicio
+                        </strong>
+
+                        <div
+                            style="
+                                color:#64748b;
+                                font-size:12px;
+                                margin-top:3px;
+                            "
+                        >
+                            Tiempo:
+                            <span id="serviceTimer">
+                                00:00:00
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <button
+                        class="btn btn-success"
+                        id="startServiceBtn"
+                    >
+                        ▶ Entrar en servicio
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        id="stopServiceBtn"
+                    >
+                        ■ Parar servicio
+                    </button>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <!-- =========================
-             ESTADÍSTICAS
-        ========================= -->
+        <!-- ESTADÍSTICAS -->
 
         <div class="card">
 
@@ -844,6 +1112,20 @@ td{
 
                 </div>
 
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Cuerpo activo
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statCuerpo"
+                    >
+                        Ninguno
+                    </div>
+
+                </div>
 
                 <div class="stat">
 
@@ -860,6 +1142,20 @@ td{
 
                 </div>
 
+                <div class="stat">
+
+                    <div class="stat-title">
+                        Tiempo de servicio
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statServicio"
+                    >
+                        00:00:00
+                    </div>
+
+                </div>
 
                 <div class="stat">
 
@@ -875,7 +1171,6 @@ td{
                     </div>
 
                 </div>
-
 
                 <div class="stat">
 
@@ -899,9 +1194,155 @@ td{
     </section>
 
 
-    <!-- =========================
-         SALA DE RADIO
-    ========================= -->
+    <!-- =====================================================
+         CENTRAL 112
+    ===================================================== -->
+
+    <section
+        id="view-central112"
+        style="display:none;"
+    >
+
+        <div class="card">
+
+            <h2>
+                🚨 Central 112
+            </h2>
+
+            <div
+                class="alert alert-info"
+                id="central112Info"
+            >
+                Panel de gestión de centrales.
+            </div>
+
+            <div class="dispatch-grid">
+
+                <div class="dispatch-card">
+
+                    <h3>
+                        🚨 Central 112
+                    </h3>
+
+                    <div
+                        class="dispatch-status"
+                        id="status112"
+                    >
+                        OFFLINE
+                    </div>
+
+                    <div class="toggle">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <div
+                            class="toggle-switch"
+                            data-system="CENTRAL112"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dispatch-card">
+
+                    <h3>
+                        👮 CNP
+                    </h3>
+
+                    <div
+                        class="dispatch-status"
+                        id="statusCNP"
+                    >
+                        OFFLINE
+                    </div>
+
+                    <div class="toggle">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <div
+                            class="toggle-switch"
+                            data-system="CNP"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dispatch-card">
+
+                    <h3>
+                        👮 Policía Local
+                    </h3>
+
+                    <div
+                        class="dispatch-status"
+                        id="statusPL"
+                    >
+                        OFFLINE
+                    </div>
+
+                    <div class="toggle">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <div
+                            class="toggle-switch"
+                            data-system="PL"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dispatch-card">
+
+                    <h3>
+                        🪖 Guardia Civil
+                    </h3>
+
+                    <div
+                        class="dispatch-status"
+                        id="statusGC"
+                    >
+                        OFFLINE
+                    </div>
+
+                    <div class="toggle">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <div
+                            class="toggle-switch"
+                            data-system="GC"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RADIO
+    ===================================================== -->
 
     <section
         id="view-radio"
@@ -910,9 +1351,11 @@ td{
 
         <div class="card">
 
-            <div class="radio-layout">
+            <div class="alert alert-warning" id="radioBodyWarning">
+                Selecciona un cuerpo y entra en servicio para utilizar la radio.
+            </div>
 
-                <!-- LISTA DE CANALES -->
+            <div class="radio-layout">
 
                 <div class="radio-sidebar">
 
@@ -926,7 +1369,6 @@ td{
 
                     </div>
 
-
                     <div class="radio-section">
 
                         <div class="radio-section-title">
@@ -936,7 +1378,6 @@ td{
                         <div id="radioGC"></div>
 
                     </div>
-
 
                     <div class="radio-section">
 
@@ -950,8 +1391,6 @@ td{
 
                 </div>
 
-
-                <!-- PANEL RADIO -->
 
                 <div class="radio-main">
 
@@ -1045,9 +1484,9 @@ td{
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          REGISTRO CIVIL
-    ========================= -->
+    ===================================================== -->
 
     <section
         id="view-civil"
@@ -1076,7 +1515,6 @@ td{
 
                 </div>
 
-
                 <div class="form-group">
 
                     <label>
@@ -1089,7 +1527,6 @@ td{
                     >
 
                 </div>
-
 
                 <div class="form-group">
 
@@ -1123,9 +1560,9 @@ td{
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          DENUNCIAS
-    ========================= -->
+    ===================================================== -->
 
     <section
         id="view-denuncias"
@@ -1196,9 +1633,9 @@ td{
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          INFORMES
-    ========================= -->
+    ===================================================== -->
 
     <section
         id="view-informes"
@@ -1239,7 +1676,6 @@ td{
 
             </div>
 
-
             <div class="form-group">
 
                 <label>
@@ -1252,7 +1688,6 @@ td{
                 ></textarea>
 
             </div>
-
 
             <button
                 class="btn btn-primary"
@@ -1298,9 +1733,9 @@ td{
     </section>
 
 
-    <!-- =========================
-         BÚSQUEDA Y CAPTURA
-    ========================= -->
+    <!-- =====================================================
+         CAPTURA
+    ===================================================== -->
 
     <section
         id="view-captura"
@@ -1328,7 +1763,6 @@ td{
 
                 </div>
 
-
                 <div class="form-group">
 
                     <label>
@@ -1344,14 +1778,12 @@ td{
 
             </div>
 
-
             <button
                 class="btn btn-primary"
                 id="buscarCapturaBtn"
             >
                 Buscar
             </button>
-
 
             <div
                 id="resultadoCaptura"
@@ -1370,57 +1802,55 @@ td{
 <script>
 
 /* =====================================================
-   DATOS GUARDADOS
+   DATOS
 ===================================================== */
 
-let personajes =
-    JSON.parse(
-        localStorage.getItem(
-            "simulador_personajes"
-        ) || "[]"
-    );
+let personajes = JSON.parse(
+    localStorage.getItem("radio_madrid_personajes") || "[]"
+);
 
+let personajeActual = Number(
+    localStorage.getItem("radio_madrid_personaje_actual")
+) || null;
 
-let personajeActual =
-    Number(
-        localStorage.getItem(
-            "simulador_personaje_actual"
-        )
-    ) || null;
+let placaSiguiente = Number(
+    localStorage.getItem("radio_madrid_placa_siguiente")
+) || 1001;
 
+let denuncias = JSON.parse(
+    localStorage.getItem("radio_madrid_denuncias") || "[]"
+);
 
-let placaSiguiente =
-    Number(
-        localStorage.getItem(
-            "simulador_placa_siguiente"
-        )
-    ) || 1001;
+let informes = JSON.parse(
+    localStorage.getItem("radio_madrid_informes") || "[]"
+);
 
+let cuerpoActivo = localStorage.getItem(
+    "radio_madrid_cuerpo_activo"
+) || "";
 
-let denuncias =
-    JSON.parse(
-        localStorage.getItem(
-            "simulador_denuncias"
-        ) || "[]"
-    );
+let servicioActivo = localStorage.getItem(
+    "radio_madrid_servicio_activo"
+) === "true";
 
+let servicioInicio = Number(
+    localStorage.getItem("radio_madrid_servicio_inicio")
+) || 0;
 
-let informes =
-    JSON.parse(
-        localStorage.getItem(
-            "simulador_informes"
-        ) || "[]"
-    );
+let tiempoServicioAcumulado = Number(
+    localStorage.getItem("radio_madrid_tiempo_servicio")
+) || 0;
 
+let estadosCentral = JSON.parse(
+    localStorage.getItem("radio_madrid_estados_central") ||
+    '{"CENTRAL112":false,"CNP":false,"PL":false,"GC":false}'
+);
 
 let canalActual = null;
 
 let microfonoActivo = false;
-
 let transmitiendo = false;
-
 let silenciado = false;
-
 let reconocimiento = null;
 
 
@@ -1431,28 +1861,53 @@ let reconocimiento = null;
 function guardarDatos(){
 
     localStorage.setItem(
-        "simulador_personajes",
+        "radio_madrid_personajes",
         JSON.stringify(personajes)
     );
 
     localStorage.setItem(
-        "simulador_personaje_actual",
+        "radio_madrid_personaje_actual",
         personajeActual ?? ""
     );
 
     localStorage.setItem(
-        "simulador_placa_siguiente",
+        "radio_madrid_placa_siguiente",
         placaSiguiente
     );
 
     localStorage.setItem(
-        "simulador_denuncias",
+        "radio_madrid_denuncias",
         JSON.stringify(denuncias)
     );
 
     localStorage.setItem(
-        "simulador_informes",
+        "radio_madrid_informes",
         JSON.stringify(informes)
+    );
+
+    localStorage.setItem(
+        "radio_madrid_cuerpo_activo",
+        cuerpoActivo
+    );
+
+    localStorage.setItem(
+        "radio_madrid_servicio_activo",
+        servicioActivo
+    );
+
+    localStorage.setItem(
+        "radio_madrid_servicio_inicio",
+        servicioInicio
+    );
+
+    localStorage.setItem(
+        "radio_madrid_tiempo_servicio",
+        tiempoServicioAcumulado
+    );
+
+    localStorage.setItem(
+        "radio_madrid_estados_central",
+        JSON.stringify(estadosCentral)
     );
 }
 
@@ -1462,44 +1917,44 @@ function guardarDatos(){
 ===================================================== */
 
 const registerCard =
-    document.getElementById(
-        "registerCard"
-    );
+    document.getElementById("registerCard");
 
 const characterPanel =
-    document.getElementById(
-        "characterPanel"
-    );
+    document.getElementById("characterPanel");
+
+const bodyPanel =
+    document.getElementById("bodyPanel");
 
 const listaPersonajes =
-    document.getElementById(
-        "listaPersonajes"
-    );
+    document.getElementById("listaPersonajes");
 
 const statPJ =
-    document.getElementById(
-        "statPJ"
-    );
+    document.getElementById("statPJ");
 
 const statCanal =
-    document.getElementById(
-        "statCanal"
-    );
+    document.getElementById("statCanal");
 
 const statDenuncias =
-    document.getElementById(
-        "statDenuncias"
-    );
+    document.getElementById("statDenuncias");
 
 const statInformes =
-    document.getElementById(
-        "statInformes"
-    );
+    document.getElementById("statInformes");
 
 
 /* =====================================================
-   CUERPOS
+   UTILIDADES
 ===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
 
 function nombreCuerpo(cuerpo){
 
@@ -1515,35 +1970,67 @@ function nombreCuerpo(cuerpo){
         return "Policía Local";
     }
 
-    return cuerpo;
+    return cuerpo || "Sin seleccionar";
+}
+
+
+function nombreRol(rol){
+
+    if(rol === "112"){
+        return "Operador 112";
+    }
+
+    if(rol === "JEFE"){
+        return "Jefe";
+    }
+
+    if(rol === "AGENTE"){
+        return "Agente";
+    }
+
+    return rol || "Sin rol";
+}
+
+
+function obtenerPJ(){
+
+    return personajes.find(
+        p => p.id === personajeActual
+    );
+}
+
+
+function tieneAcceso112(){
+
+    const pj = obtenerPJ();
+
+    if(!pj){
+        return false;
+    }
+
+    return pj.rol === "112" || pj.rol === "JEFE";
 }
 
 
 /* =====================================================
-   VISTA DE REGISTRO
+   VISTA REGISTRO
 ===================================================== */
 
 function actualizarVistaRegistro(){
 
-    const tienePJ =
-        personajes.length > 0;
-
+    const tienePJ = personajes.length > 0;
 
     if(tienePJ){
 
-        registerCard.style.display =
-            "none";
-
-        characterPanel.style.display =
-            "block";
+        registerCard.style.display = "none";
+        characterPanel.style.display = "block";
+        bodyPanel.style.display = "block";
 
     }else{
 
-        registerCard.style.display =
-            "block";
-
-        characterPanel.style.display =
-            "none";
+        registerCard.style.display = "block";
+        characterPanel.style.display = "none";
+        bodyPanel.style.display = "none";
 
     }
 }
@@ -1555,291 +2042,237 @@ function actualizarVistaRegistro(){
 
 document
 .getElementById("crearPJBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        const nombre =
-            document.getElementById(
-                "nombre"
-            ).value.trim();
+    const nombre =
+        document.getElementById("nombre")
+        .value.trim();
 
+    const apellidos =
+        document.getElementById("apellidos")
+        .value.trim();
 
-        const apellidos =
-            document.getElementById(
-                "apellidos"
-            ).value.trim();
+    const rol =
+        document.getElementById("rol")
+        .value;
 
-
-        const cuerpo =
-            document.getElementById(
-                "cuerpo"
-            ).value;
-
-
-        if(
-            !nombre ||
-            !apellidos ||
-            !cuerpo
-        ){
-
-            alert(
-                "Completa nombre, apellidos y cuerpo."
-            );
-
-            return;
-        }
-
-
-        if(personajes.length >= 3){
-
-            alert(
-                "Solo puedes tener un máximo de 3 PJ."
-            );
-
-            return;
-        }
-
-
-        const nuevoPJ = {
-
-            id:Date.now(),
-
-            nombre:nombre,
-
-            apellidos:apellidos,
-
-            cuerpo:cuerpo,
-
-            placa:placaSiguiente,
-
-            fechaCreacion:
-                new Date()
-                .toLocaleString("es-ES")
-
-        };
-
-
-        personajes.push(
-            nuevoPJ
-        );
-
-
-        personajeActual =
-            nuevoPJ.id;
-
-
-        placaSiguiente++;
-
-
-        /*
-           GUARDAR PJ
-        */
-
-        guardarDatos();
-
-
-        document.getElementById(
-            "nombre"
-        ).value = "";
-
-
-        document.getElementById(
-            "apellidos"
-        ).value = "";
-
-
-        document.getElementById(
-            "cuerpo"
-        ).value = "";
-
-
-        registerCard
-            .querySelector("h2")
-            .textContent =
-            "Registrar primer PJ";
-
-
-        actualizarVistaRegistro();
-
-        actualizarPersonajes();
-
-        actualizarPanelPersonaje();
-
-        actualizarEstadisticas();
-
+    if(!nombre || !apellidos || !rol){
 
         alert(
-            "PJ registrado correctamente.\n\n" +
-            "El personaje ha quedado guardado."
+            "Completa nombre, apellidos y rol."
         );
 
+        return;
     }
-);
+
+    if(personajes.length >= 3){
+
+        alert(
+            "Solo puedes tener un máximo de 3 PJ."
+        );
+
+        return;
+    }
+
+    const nuevoPJ = {
+
+        id:Date.now(),
+
+        nombre:nombre,
+
+        apellidos:apellidos,
+
+        rol:rol,
+
+        placa:placaSiguiente,
+
+        fechaCreacion:
+            new Date().toLocaleString("es-ES")
+
+    };
+
+    personajes.push(nuevoPJ);
+
+    personajeActual = nuevoPJ.id;
+
+    placaSiguiente++;
+
+    cuerpoActivo = "";
+
+    servicioActivo = false;
+
+    servicioInicio = 0;
+
+    tiempoServicioAcumulado = 0;
+
+    guardarDatos();
+
+    document.getElementById("nombre").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("rol").value = "";
+
+    actualizarVistaRegistro();
+    actualizarPanelPersonaje();
+    actualizarPersonajes();
+    actualizarEstadisticas();
+    actualizarAcceso112();
+
+    alert(
+        "PJ creado correctamente."
+    );
+
+});
 
 
 /* =====================================================
-   REGISTRAR OTRO PJ
+   OTRO PJ
 ===================================================== */
 
 document
 .getElementById("otroPJBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        if(personajes.length >= 3){
+    if(personajes.length >= 3){
 
-            alert(
-                "Ya tienes 3 PJ registrados."
-            );
+        alert(
+            "Ya tienes 3 PJ registrados."
+        );
 
-            return;
-        }
-
-
-        registerCard.style.display =
-            "block";
-
-
-        registerCard
-            .querySelector("h2")
-            .textContent =
-            "Registrar otro PJ";
-
-
-        registerCard.scrollIntoView({
-            behavior:"smooth"
-        });
-
+        return;
     }
-);
+
+    registerCard.style.display = "block";
+
+    registerCard.querySelector("h2").textContent =
+        "Registrar otro PJ";
+
+    registerCard.scrollIntoView({
+        behavior:"smooth"
+    });
+
+});
 
 
 /* =====================================================
-   LISTA DE PJ
+   LISTA PERSONAJES
 ===================================================== */
 
 function actualizarPersonajes(){
 
-    listaPersonajes.innerHTML = "";
+    /*
+       Se crea dinámicamente una lista
+       dentro del panel de personaje.
+    */
 
+    let contenedor =
+        document.getElementById("listaPersonajes");
 
-    personajes.forEach(
-        function(pj){
+    contenedor.innerHTML = "";
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+    personajes.forEach(function(pj){
 
+        const div =
+            document.createElement("div");
 
-            div.className =
-                "info-box";
+        div.className = "info-box";
 
+        const activo =
+            pj.id === personajeActual;
 
-            const activo =
-                pj.id === personajeActual;
+        div.innerHTML = `
 
+            <div class="info-label">
+                PJ
+            </div>
 
-            div.innerHTML = `
+            <div
+                class="info-value"
+                style="margin-bottom:8px;"
+            >
+                ${escapeHTML(pj.nombre)}
+                ${escapeHTML(pj.apellidos)}
+            </div>
 
-                <div class="info-label">
-                    PJ
-                </div>
+            <div style="margin-bottom:8px;">
 
-                <div
-                    class="info-value"
-                    style="margin-bottom:8px;"
+                <span class="badge">
+                    ${escapeHTML(nombreRol(pj.rol))}
+                </span>
+
+            </div>
+
+            <div style="
+                color:#94a3b8;
+                font-size:12px;
+                margin-bottom:10px;
+            ">
+                Placa: ${pj.placa}
+            </div>
+
+            ${
+                activo
+                ?
+                `
+                <button
+                    class="btn btn-secondary"
+                    disabled
                 >
-                    ${escapeHTML(pj.nombre)}
-                    ${escapeHTML(pj.apellidos)}
-                </div>
+                    PJ seleccionado
+                </button>
+                `
+                :
+                `
+                <button
+                    class="btn btn-primary seleccionar-pj"
+                    data-id="${pj.id}"
+                >
+                    Seleccionar
+                </button>
+                `
+            }
 
-                <div style="margin-bottom:8px;">
+        `;
 
-                    <span class="badge">
-                        ${escapeHTML(pj.cuerpo)}
-                    </span>
+        contenedor.appendChild(div);
 
-                </div>
-
-                <div style="
-                    color:#94a3b8;
-                    font-size:12px;
-                    margin-bottom:10px;
-                ">
-                    Placa: ${pj.placa}
-                </div>
-
-                ${
-                    activo
-                    ?
-                    `
-                    <button
-                        class="btn btn-secondary"
-                        disabled
-                        style="opacity:.6;"
-                    >
-                        PJ seleccionado
-                    </button>
-                    `
-                    :
-                    `
-                    <button
-                        class="btn btn-primary seleccionar-pj"
-                        data-id="${pj.id}"
-                    >
-                        Seleccionar
-                    </button>
-                    `
-                }
-
-            `;
-
-
-            listaPersonajes
-                .appendChild(div);
-
-        }
-    );
+    });
 
 
     document
-    .querySelectorAll(
-        ".seleccionar-pj"
-    )
-    .forEach(
-        function(btn){
+    .querySelectorAll(".seleccionar-pj")
+    .forEach(function(btn){
 
-            btn.addEventListener(
-                "click",
-                function(){
+        btn.addEventListener("click",function(){
 
-                    const id =
-                        Number(
-                            this.dataset.id
-                        );
+            const id =
+                Number(this.dataset.id);
 
+            personajeActual = id;
 
-                    personajeActual =
-                        id;
+            cuerpoActivo = "";
 
+            servicioActivo = false;
 
-                    guardarDatos();
+            servicioInicio = 0;
 
+            tiempoServicioAcumulado = 0;
 
-                    actualizarPersonajes();
+            canalActual = null;
 
-                    actualizarPanelPersonaje();
+            guardarDatos();
 
-                    actualizarEstadisticas();
+            detenerMicrofono();
 
-                }
-            );
+            actualizarPersonajes();
+            actualizarPanelPersonaje();
+            actualizarVistaRegistro();
+            actualizarEstadisticas();
+            actualizarAcceso112();
+            actualizarCuerposRadio();
 
-        }
-    );
+        });
+
+    });
 
 }
 
@@ -1850,55 +2283,382 @@ function actualizarPersonajes(){
 
 function actualizarPanelPersonaje(){
 
-    const pj =
-        personajes.find(
-            p =>
-                p.id ===
-                personajeActual
-        );
-
+    const pj = obtenerPJ();
 
     if(!pj){
+        return;
+    }
 
-        if(personajes.length > 0){
+    document.getElementById("infoNombre").textContent =
+        pj.nombre;
 
-            personajeActual =
-                personajes[0].id;
+    document.getElementById("infoApellidos").textContent =
+        pj.apellidos;
 
-            guardarDatos();
+    document.getElementById("infoPlaca").textContent =
+        pj.placa;
 
-            actualizarPanelPersonaje();
+    document.getElementById("infoRol").textContent =
+        nombreRol(pj.rol);
+
+}
+
+
+/* =====================================================
+   ACCESO CENTRAL 112
+===================================================== */
+
+function actualizarAcceso112(){
+
+    const menu =
+        document.getElementById("menu112");
+
+    if(tieneAcceso112()){
+
+        menu.classList.remove("locked");
+        menu.title = "Acceso autorizado";
+
+    }else{
+
+        menu.classList.add("locked");
+        menu.title =
+            "Solo Jefe y Operadores 112 pueden acceder";
+
+    }
+
+}
+
+
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
+
+const titles = {
+
+    inicio:"Panel Principal",
+
+    radio:"Sala de Radio",
+
+    central112:"Central 112",
+
+    civil:"Registro Civil",
+
+    denuncias:"Gestión de Denuncias",
+
+    informes:"Informes",
+
+    captura:"Búsqueda y Captura"
+
+};
+
+
+document
+.querySelectorAll(".menu-btn")
+.forEach(function(btn){
+
+    btn.addEventListener("click",function(){
+
+        const view =
+            this.dataset.view;
+
+
+        if(view === "central112"){
+
+            if(!tieneAcceso112()){
+
+                alert(
+                    "Acceso denegado.\n\n" +
+                    "Solo los roles 112 y Jefe " +
+                    "pueden acceder a la Central 112."
+                );
+
+                return;
+            }
 
         }
+
+
+        document
+        .querySelectorAll("main section")
+        .forEach(function(section){
+
+            section.style.display = "none";
+
+        });
+
+
+        const selected =
+            document.getElementById(
+                "view-" + view
+            );
+
+        if(selected){
+
+            selected.style.display = "block";
+
+        }
+
+
+        document
+        .querySelectorAll(".menu-btn")
+        .forEach(function(button){
+
+            button.classList.remove("active");
+
+        });
+
+
+        this.classList.add("active");
+
+
+        document.getElementById("pageTitle")
+        .textContent =
+            titles[view] ||
+            "Panel Principal";
+
+
+        if(view === "radio"){
+
+            actualizarCuerposRadio();
+
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   SELECCIÓN DE CUERPO
+===================================================== */
+
+document
+.querySelectorAll(".body-option")
+.forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        if(servicioActivo){
+
+            alert(
+                "Debes parar el servicio antes " +
+                "de cambiar de cuerpo."
+            );
+
+            return;
+        }
+
+        document
+        .querySelectorAll(".body-option")
+        .forEach(function(btn){
+
+            btn.classList.remove("selected");
+
+        });
+
+        this.classList.add("selected");
+
+        cuerpoActivo =
+            this.dataset.body;
+
+        guardarDatos();
+
+        actualizarEstadisticas();
+        actualizarTopbar();
+        actualizarCuerposRadio();
+
+    });
+
+});
+
+
+/* =====================================================
+   SERVICIO
+===================================================== */
+
+document
+.getElementById("startServiceBtn")
+.addEventListener("click",function(){
+
+    if(!cuerpoActivo){
+
+        alert(
+            "Selecciona primero un cuerpo."
+        );
 
         return;
     }
 
+    if(servicioActivo){
 
-    document.getElementById(
-        "infoNombre"
-    ).textContent =
-        pj.nombre;
-
-
-    document.getElementById(
-        "infoApellidos"
-    ).textContent =
-        pj.apellidos;
-
-
-    document.getElementById(
-        "infoPlaca"
-    ).textContent =
-        pj.placa;
-
-
-    document.getElementById(
-        "infoCuerpo"
-    ).textContent =
-        nombreCuerpo(
-            pj.cuerpo
+        alert(
+            "Ya estás en servicio."
         );
+
+        return;
+    }
+
+    servicioActivo = true;
+
+    servicioInicio = Date.now();
+
+    tiempoServicioAcumulado = 0;
+
+    guardarDatos();
+
+    actualizarServicio();
+
+    añadirMensaje(
+        "SISTEMA",
+        "Has entrado en servicio como " +
+        nombreCuerpo(cuerpoActivo) + "."
+    );
+
+});
+
+
+document
+.getElementById("stopServiceBtn")
+.addEventListener("click",function(){
+
+    if(!servicioActivo){
+
+        alert(
+            "No estás en servicio."
+        );
+
+        return;
+    }
+
+    tiempoServicioAcumulado +=
+        Date.now() - servicioInicio;
+
+    servicioActivo = false;
+
+    servicioInicio = 0;
+
+    guardarDatos();
+
+    actualizarServicio();
+
+    añadirMensaje(
+        "SISTEMA",
+        "Has salido de servicio."
+    );
+
+});
+
+
+function obtenerTiempoServicio(){
+
+    let total =
+        tiempoServicioAcumulado;
+
+    if(servicioActivo){
+
+        total +=
+            Date.now() - servicioInicio;
+
+    }
+
+    return total;
+}
+
+
+function formatearTiempo(ms){
+
+    const segundos =
+        Math.floor(ms / 1000);
+
+    const h =
+        Math.floor(segundos / 3600);
+
+    const m =
+        Math.floor(
+            (segundos % 3600) / 60
+        );
+
+    const s =
+        segundos % 60;
+
+    return [
+        String(h).padStart(2,"0"),
+        String(m).padStart(2,"0"),
+        String(s).padStart(2,"0")
+    ].join(":");
+
+}
+
+
+function actualizarServicio(){
+
+    const tiempo =
+        formatearTiempo(
+            obtenerTiempoServicio()
+        );
+
+    document.getElementById(
+        "serviceTimer"
+    ).textContent = tiempo;
+
+    document.getElementById(
+        "topService"
+    ).textContent = tiempo;
+
+    document.getElementById(
+        "statServicio"
+    ).textContent = tiempo;
+
+
+    const dot =
+        document.getElementById("serviceDot");
+
+    const text =
+        document.getElementById("serviceText");
+
+    if(servicioActivo){
+
+        dot.classList.add("online");
+
+        text.textContent =
+            "En servicio";
+
+    }else{
+
+        dot.classList.remove("online");
+
+        text.textContent =
+            "Fuera de servicio";
+
+    }
+
+    actualizarTopbar();
+
+}
+
+
+setInterval(function(){
+
+    actualizarServicio();
+
+},1000);
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+function actualizarTopbar(){
+
+    document.getElementById("topBody")
+        .textContent =
+        cuerpoActivo
+        ? nombreCuerpo(cuerpoActivo)
+        : "Sin seleccionar";
+
+    document.getElementById("statCuerpo")
+        .textContent =
+        cuerpoActivo || "Ninguno";
 
 }
 
@@ -1912,188 +2672,159 @@ function actualizarEstadisticas(){
     statPJ.textContent =
         personajes.length;
 
-
     statCanal.textContent =
-        canalActual ||
-        "Ninguno";
-
+        canalActual || "Ninguno";
 
     statDenuncias.textContent =
         denuncias.length;
 
-
     statInformes.textContent =
         informes.length;
 
-}
-
-
-/* =====================================================
-   SEGURIDAD HTML
-===================================================== */
-
-function escapeHTML(text){
-
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    actualizarTopbar();
+    actualizarServicio();
 
 }
 
 
 /* =====================================================
-   NAVEGACIÓN
+   CENTRAL 112
 ===================================================== */
-
-const titles = {
-
-    inicio:
-        "Panel Principal",
-
-    radio:
-        "Sala de Radio",
-
-    civil:
-        "Registro Civil",
-
-    denuncias:
-        "Gestión de Denuncias",
-
-    informes:
-        "Informes",
-
-    captura:
-        "Búsqueda y Captura"
-
-};
-
 
 document
-.querySelectorAll(
-    ".menu-btn"
-)
-.forEach(
-    function(btn){
+.querySelectorAll(".toggle-switch")
+.forEach(function(toggle){
 
-        btn.addEventListener(
-            "click",
-            function(){
+    toggle.addEventListener("click",function(){
 
-                const view =
-                    this.dataset.view;
+        if(!tieneAcceso112()){
 
+            alert(
+                "No tienes permisos para modificar las centrales."
+            );
 
-                document
-                .querySelectorAll(
-                    "main section"
-                )
-                .forEach(
-                    function(section){
+            return;
+        }
 
-                        section.style.display =
-                            "none";
+        const sistema =
+            this.dataset.system;
 
-                    }
-                );
+        estadosCentral[sistema] =
+            !estadosCentral[sistema];
 
+        guardarDatos();
 
-                const selected =
-                    document.getElementById(
-                        "view-" + view
-                    );
+        actualizarCentral();
 
-
-                if(selected){
-
-                    selected.style.display =
-                        "block";
-
-                }
-
-
-                document
-                .querySelectorAll(
-                    ".menu-btn"
-                )
-                .forEach(
-                    function(button){
-
-                        button.classList
-                            .remove(
-                                "active"
-                            );
-
-                    }
-                );
-
-
-                this.classList.add(
-                    "active"
-                );
-
-
-                document.getElementById(
-                    "pageTitle"
-                ).textContent =
-                    titles[view] ||
-                    "Panel Principal";
-
-            }
+        añadirMensaje(
+            "CENTRAL 112",
+            sistema +
+            (
+                estadosCentral[sistema]
+                ? " activado."
+                : " desactivado."
+            )
         );
 
-    }
-);
+    });
+
+});
+
+
+function actualizarCentral(){
+
+    document
+    .querySelectorAll(".toggle-switch")
+    .forEach(function(toggle){
+
+        const sistema =
+            toggle.dataset.system;
+
+        const activo =
+            estadosCentral[sistema];
+
+        toggle.classList.toggle(
+            "active",
+            activo
+        );
+
+        const statusId =
+            "status" + sistema
+            .replace("CENTRAL112","112");
+
+        const status =
+            document.getElementById(statusId);
+
+        if(status){
+
+            status.textContent =
+                activo
+                ? "ONLINE"
+                : "OFFLINE";
+
+            status.style.color =
+                activo
+                ? "#22c55e"
+                : "#94a3b8";
+
+        }
+
+    });
+
+}
 
 
 /* =====================================================
-   CREAR CANAL
+   CANALES
 ===================================================== */
 
 function crearCanal(
     contenedor,
-    nombre
+    nombre,
+    cuerpo
 ){
 
     const button =
-        document.createElement(
-            "button"
-        );
+        document.createElement("button");
 
+    button.className = "channel";
 
-    button.className =
-        "channel";
+    button.textContent = nombre;
 
+    button.dataset.channel = nombre;
 
-    button.textContent =
-        nombre;
-
-
-    button.dataset.channel =
-        nombre;
-
-
-    button.dataset.generated =
-        "true";
-
+    button.dataset.body = cuerpo;
 
     button.addEventListener(
         "click",
         function(){
 
-            seleccionarCanal(
-                nombre
-            );
+            if(!servicioActivo){
+
+                alert(
+                    "Debes estar en servicio para usar la radio."
+                );
+
+                return;
+            }
+
+            if(cuerpoActivo !== cuerpo){
+
+                alert(
+                    "Este canal pertenece a " +
+                    nombreCuerpo(cuerpo) +
+                    "."
+                );
+
+                return;
+            }
+
+            seleccionarCanal(nombre);
 
         }
     );
 
-
-    contenedor.appendChild(
-        button
-    );
+    contenedor.appendChild(button);
 
 }
 
@@ -2103,200 +2834,85 @@ function crearCanal(
 ===================================================== */
 
 const radioCNP =
-    document.getElementById(
-        "radioCNP"
-    );
+    document.getElementById("radioCNP");
 
-
-const uprTitle =
-    document.createElement(
-        "div"
-    );
-
-uprTitle.className =
-    "radio-section-title";
-
-uprTitle.textContent =
-    "UPR";
-
-radioCNP.appendChild(
-    uprTitle
-);
-
-
-for(
-    let i = 1;
-    i <= 20;
-    i++
-){
+for(let i=1;i<=20;i++){
 
     crearCanal(
         radioCNP,
-        "UPR-" + i
+        "UPR-" + i,
+        "CNP"
     );
 
 }
 
-
-const uipTitle =
-    document.createElement(
-        "div"
-    );
-
-uipTitle.className =
-    "radio-section-title";
-
-uipTitle.textContent =
-    "UIP";
-
-radioCNP.appendChild(
-    uipTitle
-);
-
-
-for(
-    let i = 1;
-    i <= 20;
-    i++
-){
+for(let i=1;i<=20;i++){
 
     crearCanal(
         radioCNP,
-        "UIP-" + i
+        "UIP-" + i,
+        "CNP"
     );
 
 }
-
-
-const zetasTitle =
-    document.createElement(
-        "div"
-    );
-
-zetasTitle.className =
-    "radio-section-title";
-
-zetasTitle.textContent =
-    "ZETAS";
-
-radioCNP.appendChild(
-    zetasTitle
-);
-
 
 [
     "Z-20",
     "Z-30",
     "Z-40",
     "Z-50",
-    "Z-60"
-].forEach(
-    function(canal){
-
-        crearCanal(
-            radioCNP,
-            canal
-        );
-
-    }
-);
-
-
-const cnpOtrosTitle =
-    document.createElement(
-        "div"
-    );
-
-cnpOtrosTitle.className =
-    "radio-section-title";
-
-cnpOtrosTitle.textContent =
-    "CNP - OTROS";
-
-radioCNP.appendChild(
-    cnpOtrosTitle
-);
-
-
-[
+    "Z-60",
     "CNP GENERAL",
     "JEFATURA"
-].forEach(
-    function(canal){
+].forEach(function(canal){
 
-        crearCanal(
-            radioCNP,
-            canal
-        );
+    crearCanal(
+        radioCNP,
+        canal,
+        "CNP"
+    );
 
-    }
-);
+});
 
 
 /* =====================================================
-   GUARDIA CIVIL
+   GC
 ===================================================== */
 
 const radioGC =
-    document.getElementById(
-        "radioGC"
-    );
+    document.getElementById("radioGC");
 
-
-const gcTitle =
-    document.createElement(
-        "div"
-    );
-
-gcTitle.className =
-    "radio-section-title";
-
-gcTitle.textContent =
-    "CANALES GC";
-
-radioGC.appendChild(
-    gcTitle
-);
-
-
-for(
-    let i = 1;
-    i <= 70;
-    i++
-){
+for(let i=1;i<=70;i++){
 
     crearCanal(
         radioGC,
-        "C-GC" + i
+        "C-GC" + i,
+        "GC"
     );
 
 }
-
 
 [
     "GC GENERAL",
     "GC TRÁFICO",
     "GC SEPRONA"
-].forEach(
-    function(canal){
+].forEach(function(canal){
 
-        crearCanal(
-            radioGC,
-            canal
-        );
+    crearCanal(
+        radioGC,
+        canal,
+        "GC"
+    );
 
-    }
-);
+});
 
 
 /* =====================================================
-   POLICÍA LOCAL
+   PL
 ===================================================== */
 
 const radioPL =
-    document.getElementById(
-        "radioPL"
-    );
+    document.getElementById("radioPL");
 
 
 function crearGrupoPL(
@@ -2305,33 +2921,23 @@ function crearGrupoPL(
 ){
 
     const title =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     title.className =
         "radio-section-title";
 
-
     title.textContent =
         titulo;
 
-
-    radioPL.appendChild(
-        title
-    );
+    radioPL.appendChild(title);
 
 
-    for(
-        let i = 1;
-        i <= 20;
-        i++
-    ){
+    for(let i=1;i<=20;i++){
 
         crearCanal(
             radioPL,
-            prefijo + i
+            prefijo + i,
+            "PL"
         );
 
     }
@@ -2339,91 +2945,129 @@ function crearGrupoPL(
 }
 
 
-crearGrupoPL(
-    "KO",
-    "KO"
-);
+crearGrupoPL("KO","KO");
+crearGrupoPL("SEC","SEC");
+crearGrupoPL("TRA","TRA");
+crearGrupoPL("PAT","PAT");
 
 
-crearGrupoPL(
-    "SEC",
-    "SEC"
-);
+/*
+   Los grupos PL tienen que pertenecer
+   a Policía Local.
+*/
+
+document
+.querySelectorAll("#radioPL .channel")
+.forEach(function(channel){
+
+    channel.dataset.body = "PL";
+
+});
 
 
-crearGrupoPL(
-    "TRA",
-    "TRA"
-);
+/* =====================================================
+   RADIO SEGÚN CUERPO
+===================================================== */
+
+function actualizarCuerposRadio(){
+
+    document
+    .querySelectorAll(".channel")
+    .forEach(function(channel){
+
+        const pertenece =
+            channel.dataset.body === cuerpoActivo;
+
+        channel.style.display =
+            pertenece
+            ? "block"
+            : "none";
+
+    });
 
 
-crearGrupoPL(
-    "PAT",
-    "PAT"
-);
+    const warning =
+        document.getElementById(
+            "radioBodyWarning"
+        );
+
+    if(!cuerpoActivo){
+
+        warning.textContent =
+            "Selecciona un cuerpo para ver sus canales.";
+
+        warning.className =
+            "alert alert-warning";
+
+        return;
+    }
+
+    if(!servicioActivo){
+
+        warning.textContent =
+            "Has seleccionado " +
+            nombreCuerpo(cuerpoActivo) +
+            ". Entra en servicio para utilizar la radio.";
+
+        warning.className =
+            "alert alert-warning";
+
+        return;
+    }
+
+    warning.textContent =
+        "Radio activa: " +
+        nombreCuerpo(cuerpoActivo);
+
+    warning.className =
+        "alert alert-success";
+
+}
 
 
 /* =====================================================
    SELECCIONAR CANAL
 ===================================================== */
 
-function seleccionarCanal(
-    nombre
-){
+function seleccionarCanal(nombre){
 
-    canalActual =
-        nombre;
-
+    canalActual = nombre;
 
     document.getElementById(
         "currentChannel"
-    ).textContent =
-        nombre;
-
+    ).textContent = nombre;
 
     document.getElementById(
         "radioStatus"
     ).textContent =
         "Canal seleccionado";
 
+    document
+    .querySelectorAll(".channel")
+    .forEach(function(button){
+
+        button.classList.remove(
+            "selected"
+        );
+
+    });
 
     document
-    .querySelectorAll(
-        ".channel"
-    )
-    .forEach(
-        function(button){
+    .querySelectorAll(".channel")
+    .forEach(function(button){
 
-            button.classList
-                .remove(
-                    "selected"
-                );
+        if(
+            button.dataset.channel ===
+            nombre
+        ){
 
-        }
-    );
-
-
-    document
-    .querySelectorAll(
-        ".channel"
-    )
-    .forEach(
-        function(button){
-
-            if(
-                button.dataset.channel ===
-                nombre
-            ){
-
-                button.classList.add(
-                    "selected"
-                );
-
-            }
+            button.classList.add(
+                "selected"
+            );
 
         }
-    );
 
+    });
 
     añadirMensaje(
         "SISTEMA",
@@ -2431,7 +3075,6 @@ function seleccionarCanal(
         nombre +
         " seleccionado."
     );
-
 
     actualizarEstadisticas();
 
@@ -2452,27 +3095,23 @@ function añadirMensaje(
             "radioScreen"
         );
 
+    if(!screen){
+        return;
+    }
 
     const div =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
-
-    div.className =
-        "message";
-
+    div.className = "message";
 
     const hora =
-        new Date()
-        .toLocaleTimeString(
+        new Date().toLocaleTimeString(
             "es-ES",
             {
                 hour:"2-digit",
                 minute:"2-digit"
             }
         );
-
 
     div.innerHTML = `
 
@@ -2488,11 +3127,7 @@ function añadirMensaje(
 
     `;
 
-
-    screen.appendChild(
-        div
-    );
-
+    screen.appendChild(div);
 
     screen.scrollTop =
         screen.scrollHeight;
@@ -2506,32 +3141,37 @@ function añadirMensaje(
 
 document
 .getElementById("micBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        if(!canalActual){
+    if(!servicioActivo){
 
-            alert(
-                "Selecciona primero un canal."
-            );
+        alert(
+            "Debes estar en servicio."
+        );
 
-            return;
-        }
+        return;
+    }
 
+    if(!canalActual){
 
-        if(microfonoActivo){
+        alert(
+            "Selecciona primero un canal."
+        );
 
-            detenerMicrofono();
+        return;
+    }
 
-        }else{
+    if(microfonoActivo){
 
-            iniciarMicrofono();
+        detenerMicrofono();
 
-        }
+    }else{
+
+        iniciarMicrofono();
 
     }
-);
+
+});
 
 
 function iniciarMicrofono(){
@@ -2539,7 +3179,6 @@ function iniciarMicrofono(){
     const SpeechRecognition =
         window.SpeechRecognition ||
         window.webkitSpeechRecognition;
-
 
     if(!SpeechRecognition){
 
@@ -2550,18 +3189,14 @@ function iniciarMicrofono(){
         return;
     }
 
-
     reconocimiento =
         new SpeechRecognition();
-
 
     reconocimiento.lang =
         "es-ES";
 
-
     reconocimiento.continuous =
         true;
-
 
     reconocimiento.interimResults =
         false;
@@ -2575,10 +3210,8 @@ function iniciarMicrofono(){
                     event.results.length - 1
                 ];
 
-
             const texto =
                 ultimo[0].transcript;
-
 
             if(
                 transmitiendo &&
@@ -2586,12 +3219,7 @@ function iniciarMicrofono(){
             ){
 
                 const pj =
-                    personajes.find(
-                        p =>
-                            p.id ===
-                            personajeActual
-                    );
-
+                    obtenerPJ();
 
                 const autor =
                     pj
@@ -2599,7 +3227,6 @@ function iniciarMicrofono(){
                     `${pj.nombre} ${pj.apellidos}`
                     :
                     "AGENTE";
-
 
                 añadirMensaje(
                     autor,
@@ -2620,9 +3247,7 @@ function iniciarMicrofono(){
     reconocimiento.onend =
         function(){
 
-            if(
-                microfonoActivo
-            ){
+            if(microfonoActivo){
 
                 try{
 
@@ -2639,16 +3264,12 @@ function iniciarMicrofono(){
 
         reconocimiento.start();
 
-
-        microfonoActivo =
-            true;
-
+        microfonoActivo = true;
 
         document.getElementById(
             "micBtn"
         ).textContent =
             "🎙️ Micrófono activo";
-
 
         document.getElementById(
             "radioStatus"
@@ -2668,13 +3289,9 @@ function iniciarMicrofono(){
 
 function detenerMicrofono(){
 
-    microfonoActivo =
-        false;
+    microfonoActivo = false;
 
-
-    transmitiendo =
-        false;
-
+    transmitiendo = false;
 
     if(reconocimiento){
 
@@ -2686,12 +3303,10 @@ function detenerMicrofono(){
 
     }
 
-
     document.getElementById(
         "micBtn"
     ).textContent =
         "🎙️ Micrófono";
-
 
     document.getElementById(
         "radioStatus"
@@ -2707,92 +3322,82 @@ function detenerMicrofono(){
 
 document
 .getElementById("transmitBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        if(!canalActual){
+    if(!servicioActivo){
 
-            alert(
-                "Selecciona primero un canal."
-            );
+        alert(
+            "Debes estar en servicio."
+        );
 
-            return;
-        }
+        return;
+    }
 
+    if(!canalActual){
 
-        if(!microfonoActivo){
+        alert(
+            "Selecciona primero un canal."
+        );
 
-            alert(
-                "Activa primero el micrófono."
-            );
+        return;
+    }
 
-            return;
-        }
+    if(!microfonoActivo){
 
+        alert(
+            "Activa primero el micrófono."
+        );
 
-        transmitiendo =
-            true;
+        return;
+    }
 
+    transmitiendo = true;
 
-        document.getElementById(
-            "radioStatus"
-        ).textContent =
-            "🔴 TRANSMITIENDO";
+    document.getElementById(
+        "radioStatus"
+    ).textContent =
+        "🔴 TRANSMITIENDO";
 
+    const pj =
+        obtenerPJ();
 
-        const pj =
-            personajes.find(
-                p =>
-                    p.id ===
-                    personajeActual
-            );
+    if(pj){
 
-
-        if(pj){
-
-            añadirMensaje(
-                "SISTEMA",
-                `${pj.nombre} está transmitiendo en ${canalActual}.`
-            );
-
-        }
+        añadirMensaje(
+            "SISTEMA",
+            `${pj.nombre} está transmitiendo en ${canalActual}.`
+        );
 
     }
-);
+
+});
 
 
 /* =====================================================
-   DETENER
+   DETENER TRANSMISIÓN
 ===================================================== */
 
 document
 .getElementById("stopBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        transmitiendo =
-            false;
+    transmitiendo = false;
 
+    document.getElementById(
+        "radioStatus"
+    ).textContent =
+        microfonoActivo
+        ?
+        "Micrófono activo"
+        :
+        "Radio en espera";
 
-        document.getElementById(
-            "radioStatus"
-        ).textContent =
-            microfonoActivo
-            ?
-            "Micrófono activo"
-            :
-            "Radio en espera";
+    añadirMensaje(
+        "SISTEMA",
+        "Transmisión finalizada."
+    );
 
-
-        añadirMensaje(
-            "SISTEMA",
-            "Transmisión finalizada."
-        );
-
-    }
-);
+});
 
 
 /* =====================================================
@@ -2801,40 +3406,33 @@ document
 
 document
 .getElementById("muteBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        silenciado =
-            !silenciado;
+    silenciado = !silenciado;
 
+    if(silenciado){
 
-        if(silenciado){
+        this.textContent =
+            "🔊 Activar sonido";
 
-            this.textContent =
-                "🔊 Activar sonido";
+        añadirMensaje(
+            "SISTEMA",
+            "Radio silenciada."
+        );
 
+    }else{
 
-            añadirMensaje(
-                "SISTEMA",
-                "Radio silenciada."
-            );
+        this.textContent =
+            "🔇 Silenciar";
 
-        }else{
-
-            this.textContent =
-                "🔇 Silenciar";
-
-
-            añadirMensaje(
-                "SISTEMA",
-                "Radio activada."
-            );
-
-        }
+        añadirMensaje(
+            "SISTEMA",
+            "Radio activada."
+        );
 
     }
-);
+
+});
 
 
 /* =====================================================
@@ -2843,78 +3441,69 @@ document
 
 document
 .getElementById("buscarCivilBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        const dni =
-            document.getElementById(
-                "civilDni"
-            ).value.trim();
+    const dni =
+        document.getElementById(
+            "civilDni"
+        ).value.trim();
 
+    const nombre =
+        document.getElementById(
+            "civilNombre"
+        ).value.trim();
 
-        const nombre =
-            document.getElementById(
-                "civilNombre"
-            ).value.trim();
+    const resultado =
+        document.getElementById(
+            "resultadoCivil"
+        );
 
-
-        const resultado =
-            document.getElementById(
-                "resultadoCivil"
-            );
-
-
-        if(!dni && !nombre){
-
-            resultado.innerHTML = `
-
-                <div class="alert alert-warning">
-
-                    Introduce un DNI o un nombre.
-
-                </div>
-
-            `;
-
-            return;
-        }
-
+    if(!dni && !nombre){
 
         resultado.innerHTML = `
 
-            <div class="alert alert-success">
+            <div class="alert alert-warning">
 
-                <strong>
-                    Resultado encontrado
-                </strong>
-
-                <br><br>
-
-                DNI:
-                ${escapeHTML(
-                    dni ||
-                    "No indicado"
-                )}
-
-                <br>
-
-                Nombre:
-                ${escapeHTML(
-                    nombre ||
-                    "No indicado"
-                )}
-
-                <br><br>
-
-                Registro simulado correctamente.
+                Introduce un DNI o un nombre.
 
             </div>
 
         `;
 
+        return;
     }
-);
+
+    resultado.innerHTML = `
+
+        <div class="alert alert-success">
+
+            <strong>
+                Resultado encontrado
+            </strong>
+
+            <br><br>
+
+            DNI:
+            ${escapeHTML(
+                dni || "No indicado"
+            )}
+
+            <br>
+
+            Nombre:
+            ${escapeHTML(
+                nombre || "No indicado"
+            )}
+
+            <br><br>
+
+            Registro simulado correctamente.
+
+        </div>
+
+    `;
+
+});
 
 
 /* =====================================================
@@ -2923,87 +3512,66 @@ document
 
 document
 .getElementById("crearDenunciaBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        const texto =
-            document.getElementById(
-                "denunciaTexto"
-            ).value.trim();
-
-
-        if(!texto){
-
-            alert(
-                "Escribe una descripción."
-            );
-
-            return;
-        }
-
-
-        const pj =
-            personajes.find(
-                p =>
-                    p.id ===
-                    personajeActual
-            );
-
-
-        const nuevaDenuncia = {
-
-            id:
-                denuncias.length + 1,
-
-            fecha:
-                new Date()
-                .toLocaleString(
-                    "es-ES"
-                ),
-
-            agente:
-                pj
-                ?
-                `${pj.nombre} ${pj.apellidos}`
-                :
-                "Sin agente",
-
-            descripcion:
-                texto
-
-        };
-
-
-        denuncias.push(
-            nuevaDenuncia
-        );
-
-
-        guardarDatos();
-
-
+    const texto =
         document.getElementById(
             "denunciaTexto"
-        ).value = "";
+        ).value.trim();
 
-
-        actualizarTablaDenuncias();
-
-        actualizarEstadisticas();
-
+    if(!texto){
 
         alert(
-            "Denuncia creada correctamente."
+            "Escribe una descripción."
         );
 
+        return;
     }
-);
 
+    const pj =
+        obtenerPJ();
 
-/* =====================================================
-   TABLA DENUNCIAS
-===================================================== */
+    const nuevaDenuncia = {
+
+        id:
+            denuncias.length + 1,
+
+        fecha:
+            new Date().toLocaleString(
+                "es-ES"
+            ),
+
+        agente:
+            pj
+            ?
+            `${pj.nombre} ${pj.apellidos}`
+            :
+            "Sin agente",
+
+        descripcion:
+            texto
+
+    };
+
+    denuncias.push(
+        nuevaDenuncia
+    );
+
+    guardarDatos();
+
+    document.getElementById(
+        "denunciaTexto"
+    ).value = "";
+
+    actualizarTablaDenuncias();
+    actualizarEstadisticas();
+
+    alert(
+        "Denuncia creada correctamente."
+    );
+
+});
+
 
 function actualizarTablaDenuncias(){
 
@@ -3012,52 +3580,36 @@ function actualizarTablaDenuncias(){
             "tablaDenuncias"
         );
 
-
     tabla.innerHTML = "";
 
+    denuncias.forEach(function(denuncia){
 
-    denuncias.forEach(
-        function(denuncia){
+        const tr =
+            document.createElement("tr");
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+        tr.innerHTML = `
 
+            <td>
+                #${denuncia.id}
+            </td>
 
-            tr.innerHTML = `
+            <td>
+                ${escapeHTML(denuncia.fecha)}
+            </td>
 
-                <td>
-                    #${denuncia.id}
-                </td>
+            <td>
+                ${escapeHTML(denuncia.agente)}
+            </td>
 
-                <td>
-                    ${escapeHTML(
-                        denuncia.fecha
-                    )}
-                </td>
+            <td>
+                ${escapeHTML(denuncia.descripcion)}
+            </td>
 
-                <td>
-                    ${escapeHTML(
-                        denuncia.agente
-                    )}
-                </td>
+        `;
 
-                <td>
-                    ${escapeHTML(
-                        denuncia.descripcion
-                    )}
-                </td>
+        tabla.appendChild(tr);
 
-            `;
-
-
-            tabla.appendChild(
-                tr
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -3068,96 +3620,73 @@ function actualizarTablaDenuncias(){
 
 document
 .getElementById("crearInformeBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        const tipo =
-            document.getElementById(
-                "tipoInforme"
-            ).value;
+    const tipo =
+        document.getElementById(
+            "tipoInforme"
+        ).value;
 
-
-        const texto =
-            document.getElementById(
-                "informeTexto"
-            ).value.trim();
-
-
-        if(!texto){
-
-            alert(
-                "Escribe el contenido del informe."
-            );
-
-            return;
-        }
-
-
-        const pj =
-            personajes.find(
-                p =>
-                    p.id ===
-                    personajeActual
-            );
-
-
-        const nuevoInforme = {
-
-            id:
-                informes.length + 1,
-
-            fecha:
-                new Date()
-                .toLocaleString(
-                    "es-ES"
-                ),
-
-            tipo:
-                tipo,
-
-            agente:
-                pj
-                ?
-                `${pj.nombre} ${pj.apellidos}`
-                :
-                "Sin agente",
-
-            contenido:
-                texto
-
-        };
-
-
-        informes.push(
-            nuevoInforme
-        );
-
-
-        guardarDatos();
-
-
+    const texto =
         document.getElementById(
             "informeTexto"
-        ).value = "";
+        ).value.trim();
 
-
-        actualizarTablaInformes();
-
-        actualizarEstadisticas();
-
+    if(!texto){
 
         alert(
-            "Informe creado correctamente."
+            "Escribe el contenido del informe."
         );
 
+        return;
     }
-);
 
+    const pj =
+        obtenerPJ();
 
-/* =====================================================
-   TABLA INFORMES
-===================================================== */
+    const nuevoInforme = {
+
+        id:
+            informes.length + 1,
+
+        fecha:
+            new Date().toLocaleString(
+                "es-ES"
+            ),
+
+        tipo:tipo,
+
+        agente:
+            pj
+            ?
+            `${pj.nombre} ${pj.apellidos}`
+            :
+            "Sin agente",
+
+        contenido:
+            texto
+
+    };
+
+    informes.push(
+        nuevoInforme
+    );
+
+    guardarDatos();
+
+    document.getElementById(
+        "informeTexto"
+    ).value = "";
+
+    actualizarTablaInformes();
+    actualizarEstadisticas();
+
+    alert(
+        "Informe creado correctamente."
+    );
+
+});
+
 
 function actualizarTablaInformes(){
 
@@ -3166,52 +3695,36 @@ function actualizarTablaInformes(){
             "tablaInformes"
         );
 
-
     tabla.innerHTML = "";
 
+    informes.forEach(function(informe){
 
-    informes.forEach(
-        function(informe){
+        const tr =
+            document.createElement("tr");
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+        tr.innerHTML = `
 
+            <td>
+                #${informe.id}
+            </td>
 
-            tr.innerHTML = `
+            <td>
+                ${escapeHTML(informe.fecha)}
+            </td>
 
-                <td>
-                    #${informe.id}
-                </td>
+            <td>
+                ${escapeHTML(informe.tipo)}
+            </td>
 
-                <td>
-                    ${escapeHTML(
-                        informe.fecha
-                    )}
-                </td>
+            <td>
+                ${escapeHTML(informe.agente)}
+            </td>
 
-                <td>
-                    ${escapeHTML(
-                        informe.tipo
-                    )}
-                </td>
+        `;
 
-                <td>
-                    ${escapeHTML(
-                        informe.agente
-                    )}
-                </td>
+        tabla.appendChild(tr);
 
-            `;
-
-
-            tabla.appendChild(
-                tr
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -3222,78 +3735,69 @@ function actualizarTablaInformes(){
 
 document
 .getElementById("buscarCapturaBtn")
-.addEventListener(
-    "click",
-    function(){
+.addEventListener("click",function(){
 
-        const nombre =
-            document.getElementById(
-                "capturaNombre"
-            ).value.trim();
+    const nombre =
+        document.getElementById(
+            "capturaNombre"
+        ).value.trim();
 
+    const dni =
+        document.getElementById(
+            "capturaDni"
+        ).value.trim();
 
-        const dni =
-            document.getElementById(
-                "capturaDni"
-            ).value.trim();
+    const resultado =
+        document.getElementById(
+            "resultadoCaptura"
+        );
 
-
-        const resultado =
-            document.getElementById(
-                "resultadoCaptura"
-            );
-
-
-        if(!nombre && !dni){
-
-            resultado.innerHTML = `
-
-                <div class="alert alert-warning">
-
-                    Introduce un nombre o DNI para buscar.
-
-                </div>
-
-            `;
-
-            return;
-        }
-
+    if(!nombre && !dni){
 
         resultado.innerHTML = `
 
-            <div class="alert alert-info">
+            <div class="alert alert-warning">
 
-                <strong>
-                    Búsqueda realizada
-                </strong>
-
-                <br><br>
-
-                Nombre:
-                ${escapeHTML(
-                    nombre ||
-                    "No indicado"
-                )}
-
-                <br>
-
-                DNI:
-                ${escapeHTML(
-                    dni ||
-                    "No indicado"
-                )}
-
-                <br><br>
-
-                Esta función pertenece al simulador.
+                Introduce un nombre o DNI para buscar.
 
             </div>
 
         `;
 
+        return;
     }
-);
+
+    resultado.innerHTML = `
+
+        <div class="alert alert-info">
+
+            <strong>
+                Búsqueda realizada
+            </strong>
+
+            <br><br>
+
+            Nombre:
+            ${escapeHTML(
+                nombre || "No indicado"
+            )}
+
+            <br>
+
+            DNI:
+            ${escapeHTML(
+                dni || "No indicado"
+            )}
+
+            <br><br>
+
+            Esta función pertenece al simulador.
+
+        </div>
+
+    `;
+
+});
 
 
 /* =====================================================
@@ -3303,44 +3807,67 @@ document
 function iniciarSistema(){
 
     /*
-       Si ya existe un PJ guardado,
-       NO se vuelve a pedir.
+       Si no existe ningún PJ:
+       obligamos a crear uno.
     */
 
-    if(personajes.length > 0){
+    if(personajes.length === 0){
 
-        const existe =
-            personajes.some(
-                p =>
-                    p.id ===
-                    personajeActual
-            );
+        actualizarVistaRegistro();
 
+        actualizarEstadisticas();
 
-        if(!existe){
+        actualizarAcceso112();
 
-            personajeActual =
-                personajes[0].id;
+        actualizarCentral();
 
-        }
+        return;
+    }
 
 
-        guardarDatos();
+    /*
+       Comprobar PJ actual.
+    */
+
+    const existe =
+        personajes.some(
+            p => p.id === personajeActual
+        );
+
+    if(!existe){
+
+        personajeActual =
+            personajes[0].id;
 
     }
 
 
+    /*
+       Al abrir la página:
+       el usuario tiene que volver
+       a seleccionar el cuerpo.
+    */
+
+    cuerpoActivo = "";
+
+    servicioActivo = false;
+
+    servicioInicio = 0;
+
+    tiempoServicioAcumulado = 0;
+
+    canalActual = null;
+
+
+    guardarDatos();
+
     actualizarVistaRegistro();
-
     actualizarPersonajes();
-
     actualizarPanelPersonaje();
-
-    actualizarTablaDenuncias();
-
-    actualizarTablaInformes();
-
     actualizarEstadisticas();
+    actualizarAcceso112();
+    actualizarCentral();
+    actualizarCuerposRadio();
 
 }
 
@@ -3351,3 +3878,4 @@ iniciarSistema();
 
 </body>
 </html>
+```
